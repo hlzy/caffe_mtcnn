@@ -160,8 +160,8 @@ class BatchLoader(object):
             if self.cls_cur == len(self.cls_list):
                 self.cls_cur = 0
                 random.shuffle(self.cls_list)
-            while self.cls_list[self.cls_cur][1] != 1:
-                self.cls_cur += 1
+            #while self.cls_list[self.cls_cur][1] != 1:
+            #    self.cls_cur += 1
             cur_data = self.cls_list[self.cls_cur]  # Get the image index
             im       = cur_data[0]
             label    = cur_data[1]

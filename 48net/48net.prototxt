@@ -168,10 +168,10 @@ layer {
 
 
 layer {
-  name: "conv5"
+  name: "fc5"
   type: "InnerProduct"
   bottom: "conv4"
-  top: "conv5"
+  top: "fc5"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -196,8 +196,8 @@ layer {
 layer {
   name: "drop5"
   type: "Dropout"
-  bottom: "conv5"
-  top: "conv5"
+  bottom: "fc5"
+  top: "fc5"
   dropout_param {
     dropout_ratio: 0.25
   }
@@ -205,16 +205,16 @@ layer {
 layer {
   name: "prelu5"
   type: "PReLU"
-  bottom: "conv5"
-  top: "conv5"
+  bottom: "fc5"
+  top: "fc5"
 }
 
 
 layer {
-  name: "conv6-1"
+  name: "fc6-1"
   type: "InnerProduct"
-  bottom: "conv5"
-  top: "conv6-1"
+  bottom: "fc5"
+  top: "fc6-1"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -236,10 +236,10 @@ layer {
   }
 }
 layer {
-  name: "conv6-2"
+  name: "fc6-2"
   type: "InnerProduct"
-  bottom: "conv5"
-  top: "conv6-2"
+  bottom: "fc5"
+  top: "fc6-2"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -261,10 +261,10 @@ layer {
   }
 }
 layer {
-  name: "conv6-3"
+  name: "fc6-3"
   type: "InnerProduct"
-  bottom: "conv5"
-  top: "conv6-3"
+  bottom: "fc5"
+  top: "fc6-3"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -288,6 +288,6 @@ layer {
 layer {
   name: "prob1"
   type: "Softmax"
-  bottom: "conv6-1"
+  bottom: "fc6-1"
   top: "prob1"
 }

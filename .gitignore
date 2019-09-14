@@ -1,4 +1,5 @@
 *.pyc
+*.swp
 *.caffemodel
 12net/12
 24net/24

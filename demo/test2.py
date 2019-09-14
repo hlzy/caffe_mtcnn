@@ -1,6 +1,6 @@
 import sys
 sys.path.append('.')
-sys.path.append('/home/cmcc/caffe-master/python')
+sys.path.append('/home/bitmain/lian.he/caffe/caffe/python')
 import tools_matrix as tools
 import caffe
 import cv2
@@ -12,13 +12,14 @@ caffemodel = '../12net/models/solver_iter_500000.caffemodel'
 
 net_12 = caffe.Net(deploy,caffemodel,caffe.TEST)
 
-deploy = '24net.prototxt'
+deploy = '../24net/24net.prototxt'
 #caffemodel = '../24net/24net.caffemodel'
-caffemodel = '../24net/models/solver_iter_100000.caffemodel'
+caffemodel = '../24net/models/solver_iter_500000.caffemodel'
 net_24 = caffe.Net(deploy,caffemodel,caffe.TEST)
 
-deploy = '48net.prototxt'
-caffemodel = '48net.caffemodel'
+deploy = '../48net/48net.prototxt'
+#caffemodel = '48net.caffemodel'
+caffemodel = '../48net/models/solver_iter_500000.caffemodel'
 net_48 = caffe.Net(deploy,caffemodel,caffe.TEST)
 
 
@@ -73,33 +74,34 @@ def detectFace(img_path,threshold):
         crop_number += 1
     out = net_24.forward()
     cls_prob = out['prob1']
-    roi_prob = out['conv5-2']
+    roi_prob = out['fc5-2']
     print(len(rectangles))
     print(cls_prob.shape)
     rectangles = tools.filter_face_24net(cls_prob,roi_prob,rectangles,origin_w,origin_h,threshold[1])
     print(len(rectangles))
 #
 #    
-#    if len(rectangles)==0:
-#        return rectangles
-#    net_48.blobs['data'].reshape(len(rectangles),3,48,48)
-#    crop_number = 0
-#    for rectangle in rectangles:
-#        crop_img = caffe_img[int(rectangle[1]):int(rectangle[3]), int(rectangle[0]):int(rectangle[2])]
-#        scale_img = cv2.resize(crop_img,(48,48))
-#        scale_img = np.swapaxes(scale_img, 0, 2)
-#        net_48.blobs['data'].data[crop_number] =scale_img 
-#        crop_number += 1
-#    out = net_48.forward()
-#    cls_prob = out['prob1']
-#    roi_prob = out['conv6-2']
-#    pts_prob = out['conv6-3']
-#    rectangles = tools.filter_face_48net(cls_prob,roi_prob,pts_prob,rectangles,origin_w,origin_h,threshold[2])
-#    rectangles = tools.NMS(rectangles,0.7,'iou')
+    if len(rectangles)==0:
+        return rectangles
+    net_48.blobs['data'].reshape(len(rectangles),3,48,48)
+    crop_number = 0
+    for rectangle in rectangles:
+        crop_img = caffe_img[int(rectangle[1]):int(rectangle[3]), int(rectangle[0]):int(rectangle[2])]
+        scale_img = cv2.resize(crop_img,(48,48))
+        scale_img = np.swapaxes(scale_img, 0, 2)
+        net_48.blobs['data'].data[crop_number] =scale_img 
+        crop_number += 1
+    out = net_48.forward()
+    cls_prob = out['prob1']
+    roi_prob = out['fc6-2']
+    pts_prob = out['fc6-3']
+    rectangles = tools.filter_face_48net(cls_prob,roi_prob,pts_prob,rectangles,origin_w,origin_h,threshold[2])
+    rectangles = tools.NMS(rectangles,0.7,'iou')
     return rectangles
 
-threshold = [0.8,0.6,0.7]
-imgpath = "../prepare_data/WIDER_train/images/0--Parade/0_Parade_marchingband_1_31.jpg"
+threshold = [0.9,0.9,0.95]
+#imgpath = "../prepare_data/WIDER_train/images/0--Parade/0_Parade_marchingband_1_11.jpg"
+imgpath = "../prepare_data/WIDER_train/images/1--Handshaking/1_Handshaking_Handshaking_1_940.jpg"
 rectangles = detectFace(imgpath,threshold)
 img = cv2.imread(imgpath)
 draw = img.copy()

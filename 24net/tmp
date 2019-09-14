@@ -1,0 +1,603 @@
+--
+I0912 20:43:46.232498 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.765625
+I0912 20:43:46.232517 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.556377 (* 1 = 0.556377 loss)
+--
+I0912 20:43:47.231065 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:47.231072 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:48.208206 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.703125
+I0912 20:43:48.208214 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.61065 (* 1 = 0.61065 loss)
+--
+I0912 20:43:49.186930 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.75
+I0912 20:43:49.186950 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.546501 (* 1 = 0.546501 loss)
+--
+I0912 20:43:50.157915 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:50.157922 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:51.136996 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:51.137003 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:52.105487 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:52.105494 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:53.078536 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.828125
+I0912 20:43:53.078543 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.460826 (* 1 = 0.460826 loss)
+--
+I0912 20:43:54.050891 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.734375
+I0912 20:43:54.050897 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.56198 (* 1 = 0.56198 loss)
+--
+I0912 20:43:55.025249 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:55.025255 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:55.999728 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:55.999749 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:56.975214 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.734375
+I0912 20:43:56.975221 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.538036 (* 1 = 0.538036 loss)
+--
+I0912 20:43:57.950814 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:57.950820 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:58.920737 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:58.920744 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:43:59.898003 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:43:59.898010 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:00.869943 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:00.869951 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:01.845769 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:01.845777 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:02.818349 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.8125
+I0912 20:44:02.818357 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.409324 (* 1 = 0.409324 loss)
+--
+I0912 20:44:03.797060 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:03.797067 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:04.975663 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.734375
+I0912 20:44:04.975670 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.478676 (* 1 = 0.478676 loss)
+--
+I0912 20:44:05.951076 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:05.951081 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:06.931896 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:06.931903 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:07.908216 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:07.908223 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:08.885565 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.78125
+I0912 20:44:08.885571 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.461473 (* 1 = 0.461473 loss)
+--
+I0912 20:44:09.860703 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.875
+I0912 20:44:09.860711 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.260339 (* 1 = 0.260339 loss)
+--
+I0912 20:44:10.838289 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.828125
+I0912 20:44:10.838297 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.396904 (* 1 = 0.396904 loss)
+--
+I0912 20:44:12.087047 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:12.087055 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:13.066788 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.828125
+I0912 20:44:13.066797 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.403343 (* 1 = 0.403343 loss)
+--
+I0912 20:44:14.038386 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.859375
+I0912 20:44:14.038403 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.278862 (* 1 = 0.278862 loss)
+--
+I0912 20:44:15.013466 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:15.013478 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:15.992112 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:15.992120 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:16.971444 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:16.971452 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:17.950752 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.796875
+I0912 20:44:17.950760 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.396909 (* 1 = 0.396909 loss)
+--
+I0912 20:44:18.924139 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:18.924146 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:19.903004 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:19.903012 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:20.884330 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.859375
+I0912 20:44:20.884348 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.371977 (* 1 = 0.371977 loss)
+--
+I0912 20:44:21.866183 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:21.866190 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:22.843699 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.875
+I0912 20:44:22.843708 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.250841 (* 1 = 0.250841 loss)
+--
+I0912 20:44:24.017372 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:24.017379 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:24.994468 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:44:24.994475 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.272515 (* 1 = 0.272515 loss)
+--
+I0912 20:44:25.973875 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:44:25.973882 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.225214 (* 1 = 0.225214 loss)
+--
+I0912 20:44:26.958122 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:26.958130 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:27.931452 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:44:27.931459 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.317707 (* 1 = 0.317707 loss)
+--
+I0912 20:44:28.910809 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:28.910816 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:29.882854 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:29.882861 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:30.855011 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:30.855018 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:31.826807 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:44:31.826812 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.302435 (* 1 = 0.302435 loss)
+--
+I0912 20:44:32.802194 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:32.802201 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:33.773429 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:33.773437 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:34.752914 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.875
+I0912 20:44:34.752921 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.246219 (* 1 = 0.246219 loss)
+--
+I0912 20:44:35.732129 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:35.732136 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:36.986344 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.859375
+I0912 20:44:36.986351 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.282461 (* 1 = 0.282461 loss)
+--
+I0912 20:44:37.955083 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.890625
+I0912 20:44:37.955090 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.229706 (* 1 = 0.229706 loss)
+--
+I0912 20:44:38.931216 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:44:38.931222 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.187894 (* 1 = 0.187894 loss)
+--
+I0912 20:44:39.907109 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.875
+I0912 20:44:39.907116 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.343295 (* 1 = 0.343295 loss)
+--
+I0912 20:44:40.878218 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:40.878226 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:42.053876 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.84375
+I0912 20:44:42.053884 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.371906 (* 1 = 0.371906 loss)
+--
+I0912 20:44:43.034559 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:44:43.034566 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.207377 (* 1 = 0.207377 loss)
+--
+I0912 20:44:44.007192 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.890625
+I0912 20:44:44.007200 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.232266 (* 1 = 0.232266 loss)
+--
+I0912 20:44:44.983217 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.859375
+I0912 20:44:44.983223 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.251674 (* 1 = 0.251674 loss)
+--
+I0912 20:44:45.961576 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:44:45.961585 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.179766 (* 1 = 0.179766 loss)
+--
+I0912 20:44:46.935686 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:44:46.935693 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.202039 (* 1 = 0.202039 loss)
+--
+I0912 20:44:47.915598 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.828125
+I0912 20:44:47.915606 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.426765 (* 1 = 0.426765 loss)
+--
+I0912 20:44:48.889326 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:48.889333 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:49.872512 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:49.872519 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:50.848858 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.890625
+I0912 20:44:50.848865 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.211317 (* 1 = 0.211317 loss)
+--
+I0912 20:44:51.820686 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.875
+I0912 20:44:51.820693 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.258003 (* 1 = 0.258003 loss)
+--
+I0912 20:44:52.802558 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:52.802565 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:53.777457 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:44:53.777465 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.196948 (* 1 = 0.196948 loss)
+--
+I0912 20:44:54.751122 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:54.751129 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:55.732723 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:44:55.732730 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.191971 (* 1 = 0.191971 loss)
+--
+I0912 20:44:56.706039 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.859375
+I0912 20:44:56.706046 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.273006 (* 1 = 0.273006 loss)
+--
+I0912 20:44:57.684892 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:57.684900 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:58.658299 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:58.658305 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:44:59.636456 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:44:59.636463 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:01.082125 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:01.082132 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:02.051921 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:02.051928 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:03.029232 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:45:03.029238 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.180104 (* 1 = 0.180104 loss)
+--
+I0912 20:45:04.005972 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:04.005980 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:04.975078 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:04.975085 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:05.951051 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:05.951058 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.260661 (* 1 = 0.260661 loss)
+--
+I0912 20:45:06.938707 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:06.938714 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.224247 (* 1 = 0.224247 loss)
+--
+I0912 20:45:07.920550 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:07.920568 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.216715 (* 1 = 0.216715 loss)
+--
+I0912 20:45:08.894595 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:08.894603 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.230472 (* 1 = 0.230472 loss)
+--
+I0912 20:45:09.869621 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:09.869628 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:10.848294 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:45:10.848301 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.220033 (* 1 = 0.220033 loss)
+--
+I0912 20:45:11.822576 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:11.822582 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:12.796098 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:12.796105 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:13.777197 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:13.777204 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:14.754487 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:14.754494 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:15.728619 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:45:15.728626 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.204983 (* 1 = 0.204983 loss)
+--
+I0912 20:45:16.697023 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:45:16.697033 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.1729 (* 1 = 0.1729 loss)
+--
+I0912 20:45:17.676558 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.96875
+I0912 20:45:17.676564 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.166722 (* 1 = 0.166722 loss)
+--
+I0912 20:45:18.658643 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.984375
+I0912 20:45:18.658649 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.0868298 (* 1 = 0.0868298 loss)
+--
+I0912 20:45:19.827106 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.859375
+I0912 20:45:19.827113 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.283245 (* 1 = 0.283245 loss)
+--
+I0912 20:45:20.800693 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:20.800700 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:21.771587 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:21.771595 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:22.745237 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:22.745244 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.188703 (* 1 = 0.188703 loss)
+--
+I0912 20:45:23.718461 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:23.718468 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.1847 (* 1 = 0.1847 loss)
+--
+I0912 20:45:24.690403 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:24.690410 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:25.664296 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:25.664304 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:26.916532 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:45:26.916539 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.18941 (* 1 = 0.18941 loss)
+--
+I0912 20:45:27.888248 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:27.888254 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:28.867388 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:28.867395 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:29.844434 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:29.844441 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:30.818640 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:30.818646 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:31.792814 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:45:31.792821 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.209005 (* 1 = 0.209005 loss)
+--
+I0912 20:45:32.768362 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:45:32.768368 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.125576 (* 1 = 0.125576 loss)
+--
+I0912 20:45:33.735169 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:33.735177 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.164586 (* 1 = 0.164586 loss)
+--
+I0912 20:45:34.714841 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:34.714848 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:35.689815 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:45:35.689821 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.146137 (* 1 = 0.146137 loss)
+--
+I0912 20:45:36.660264 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:36.660270 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:37.834226 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:37.834233 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:38.814703 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:38.814710 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.215121 (* 1 = 0.215121 loss)
+--
+I0912 20:45:39.788697 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:45:39.788703 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.136606 (* 1 = 0.136606 loss)
+--
+I0912 20:45:40.764569 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:40.764576 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:41.741207 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:41.741225 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:42.714119 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:42.714126 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:43.694180 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:45:43.694203 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.142663 (* 1 = 0.142663 loss)
+--
+I0912 20:45:44.674098 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.890625
+I0912 20:45:44.674104 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.25889 (* 1 = 0.25889 loss)
+--
+I0912 20:45:45.650043 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:45.650049 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:46.628420 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:46.628427 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.234613 (* 1 = 0.234613 loss)
+--
+I0912 20:45:47.612426 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:45:47.612434 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.143005 (* 1 = 0.143005 loss)
+--
+I0912 20:45:48.592280 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:48.592288 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:49.572635 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:45:49.572643 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.230324 (* 1 = 0.230324 loss)
+--
+I0912 20:45:50.817565 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:45:50.817572 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.126419 (* 1 = 0.126419 loss)
+--
+I0912 20:45:51.791627 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:51.791635 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.211929 (* 1 = 0.211929 loss)
+--
+I0912 20:45:52.763407 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:45:52.763415 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.168992 (* 1 = 0.168992 loss)
+--
+I0912 20:45:53.740166 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:53.740173 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:54.716687 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:45:54.716694 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.173888 (* 1 = 0.173888 loss)
+--
+I0912 20:45:55.692596 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:55.692603 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:56.862773 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:56.862782 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:57.845432 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:57.845438 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:58.821466 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:45:58.821473 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:45:59.789927 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.96875
+I0912 20:45:59.789934 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.186361 (* 1 = 0.186361 loss)
+--
+I0912 20:46:00.765408 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:00.765414 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:01.740840 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:01.740847 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:02.717617 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:46:02.717624 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.169474 (* 1 = 0.169474 loss)
+--
+I0912 20:46:03.686429 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:03.686435 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.279547 (* 1 = 0.279547 loss)
+--
+I0912 20:46:04.654008 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:46:04.654016 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.154765 (* 1 = 0.154765 loss)
+--
+I0912 20:46:05.627578 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:05.627585 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.173627 (* 1 = 0.173627 loss)
+--
+I0912 20:46:06.604338 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.890625
+I0912 20:46:06.604346 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.200577 (* 1 = 0.200577 loss)
+--
+I0912 20:46:07.581385 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:07.581393 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:08.563796 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:08.563803 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:09.546445 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.96875
+I0912 20:46:09.546452 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.188596 (* 1 = 0.188596 loss)
+--
+I0912 20:46:10.519282 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:10.519289 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.278051 (* 1 = 0.278051 loss)
+--
+I0912 20:46:11.487583 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:11.487591 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:12.463769 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:12.463776 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:13.437047 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:13.437053 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:14.607854 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:14.607862 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:15.585574 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:15.585582 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.158901 (* 1 = 0.158901 loss)
+--
+I0912 20:46:16.833986 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:16.833994 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.24931 (* 1 = 0.24931 loss)
+--
+I0912 20:46:17.804476 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.984375
+I0912 20:46:17.804486 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.105801 (* 1 = 0.105801 loss)
+--
+I0912 20:46:18.779947 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:46:18.779954 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.238788 (* 1 = 0.238788 loss)
+--
+I0912 20:46:19.757423 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:19.757431 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.311766 (* 1 = 0.311766 loss)
+--
+I0912 20:46:20.736533 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:20.736541 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:21.711228 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:21.711236 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.183777 (* 1 = 0.183777 loss)
+--
+I0912 20:46:22.683459 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:22.683465 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:23.655025 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:23.655032 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.164983 (* 1 = 0.164983 loss)
+--
+I0912 20:46:24.629350 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:46:24.629357 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.103529 (* 1 = 0.103529 loss)
+--
+I0912 20:46:25.601621 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:25.601629 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:26.578789 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:26.578797 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:27.552059 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:46:27.552067 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.145484 (* 1 = 0.145484 loss)
+--
+I0912 20:46:28.529392 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:28.529399 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.168896 (* 1 = 0.168896 loss)
+--
+I0912 20:46:29.505139 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:29.505147 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:30.482945 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:30.482952 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:31.463228 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:31.463235 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:32.433573 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.96875
+I0912 20:46:32.433580 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.106181 (* 1 = 0.106181 loss)
+--
+I0912 20:46:33.615451 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:46:33.615458 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.173699 (* 1 = 0.173699 loss)
+--
+I0912 20:46:34.594898 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:34.594905 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:35.573029 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:35.573035 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.175315 (* 1 = 0.175315 loss)
+--
+I0912 20:46:36.548856 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:36.548862 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:37.525943 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:37.525949 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.207002 (* 1 = 0.207002 loss)
+--
+I0912 20:46:38.501654 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:38.501662 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:39.479494 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.96875
+I0912 20:46:39.479501 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.113452 (* 1 = 0.113452 loss)
+--
+I0912 20:46:40.457900 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:40.457906 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:41.703172 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:41.703181 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:42.678230 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:42.678237 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.182696 (* 1 = 0.182696 loss)
+--
+I0912 20:46:43.652917 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:46:43.652925 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.188942 (* 1 = 0.188942 loss)
+--
+I0912 20:46:44.623231 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.953125
+I0912 20:46:44.623255 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.158553 (* 1 = 0.158553 loss)
+--
+I0912 20:46:45.603335 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:45.603343 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:46.584291 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:46:46.584298 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.197178 (* 1 = 0.197178 loss)
+--
+I0912 20:46:47.558396 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:47.558404 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:48.532676 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:48.532687 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:49.504003 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:49.504009 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:50.480281 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:46:50.480288 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.219801 (* 1 = 0.219801 loss)
+--
+I0912 20:46:51.457406 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:51.457413 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:52.631636 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:46:52.631644 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.147943 (* 1 = 0.147943 loss)
+--
+I0912 20:46:53.607035 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:53.607043 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:54.588075 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:54.588081 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:55.564859 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.9375
+I0912 20:46:55.564867 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.169779 (* 1 = 0.169779 loss)
+--
+I0912 20:46:56.550874 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:56.550880 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:46:57.523226 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:46:57.523232 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.172466 (* 1 = 0.172466 loss)
+--
+I0912 20:46:58.516203 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.890625
+I0912 20:46:58.516211 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.254548 (* 1 = 0.254548 loss)
+--
+I0912 20:46:59.487216 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:46:59.487222 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:47:00.466802 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.96875
+I0912 20:47:00.466810 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.143043 (* 1 = 0.143043 loss)
+--
+I0912 20:47:01.436846 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:47:01.436852 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:47:02.412086 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:47:02.412093 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:47:03.384883 15447 solver.cpp:258]     Train net output #0: cls_acc = 0
+I0912 20:47:03.384891 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.693147 (* 1 = 0.693147 loss)
+--
+I0912 20:47:04.358469 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.921875
+I0912 20:47:04.358475 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.183324 (* 1 = 0.183324 loss)
+--
+I0912 20:47:05.332165 15447 solver.cpp:258]     Train net output #0: cls_acc = 0.90625
+I0912 20:47:05.332171 15447 solver.cpp:258]     Train net output #1: cls_loss = 0.236273 (* 1 = 0.236273 loss)

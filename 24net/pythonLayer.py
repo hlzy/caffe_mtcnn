@@ -37,7 +37,8 @@ class Data_Layer_train(caffe.Layer):
         pass
 
     def forward(self, bottom, top):
-        loss_task = random.randint(0,1)
+        #loss_task = random.randint(0,1)
+        loss_task = 0 
         for itt in range(self.batch_size):
             im, label, roi, pts= self.batch_loader.load_next_image(loss_task)
             top[0].data[itt, ...] = im
@@ -157,6 +158,8 @@ class BatchLoader(object):
             if self.cls_cur == len(self.cls_list):
                 self.cls_cur = 0
                 random.shuffle(self.cls_list)
+            while self.cls_list[self.cls_cur][1] != 1:
+                self.cls_cur += 1
             cur_data = self.cls_list[self.cls_cur]  # Get the image index
             im       = cur_data[0]
             label    = cur_data[1]

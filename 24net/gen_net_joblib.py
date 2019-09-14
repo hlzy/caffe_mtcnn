@@ -12,7 +12,7 @@ with open('%s/pos_%s.txt'%(net, net_size), 'r') as f:
 
 with open('%s/neg_%s.txt'%(net, net_size), 'r') as f:
     neg = f.readlines()
-    size = round(len(neg) * 0.5)
+    size = round(len(neg) * 0.6)
     neg = neg[:size]
 #    neg = neg[:3000]
 
@@ -64,7 +64,7 @@ for line in pos:
 
 print('\n'+'negative-%d' % net_size)
 cur_ = 0
-neg_keep = npr.choice(len(neg), size=300000, replace=False)
+neg_keep = npr.choice(len(neg), size=600000, replace=False)
 #neg_keep = npr.choice(len(neg), size=3000, replace=False)
 sum_ = len(neg_keep)
 for i in neg_keep:
