@@ -12,4 +12,4 @@
 48net/models_mean
 48net/48_old
 prepare_data/WIDER_train/images
-prepare_data/WIDER_val/images
+prepare_data/WIDER_val
