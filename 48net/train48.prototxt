@@ -265,6 +265,18 @@ layer {
     phase: TRAIN
   }
 }
+
+layer {
+  name: "cls_Acc"
+  type: "Accuracy"
+  bottom: "fc6-1-valid"
+  bottom: "label-valid"
+  top: "cls_Acc"
+  include {
+    phase: TEST
+  }
+}
+
 layer {
   name: "fc6-2"
   type: "InnerProduct"

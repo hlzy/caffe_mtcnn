@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 result = []
-with open("roc_file_24.txt","r") as f:
+with open("roc_file_48.txt","r") as f:
     for eachline in f.readlines():
         label,prob = eachline.rstrip().split()
         result.append([float(prob),int(label)])

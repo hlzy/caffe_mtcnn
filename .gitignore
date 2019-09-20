@@ -2,6 +2,14 @@
 *.swp
 *.caffemodel
 12net/12
+12net/models
+12net/models_mean
 24net/24
+24net/models
+24net/models_mean
 48net/48
+48net/models
+48net/models_mean
+48net/48_old
 prepare_data/WIDER_train/images
+prepare_data/WIDER_val/images

@@ -1,7 +1,7 @@
 import sys
 sys.path.append('.')
-sys.path.append('/home/cmcc/caffe-master/python')
-import tools as tools
+sys.path.append('/home/bitmain/lian.he/caffe/caffe/python')
+import tools_matrix as tools
 import caffe
 import cv2
 import numpy as np
@@ -12,7 +12,6 @@ net_12 = caffe.Net(deploy,caffemodel,caffe.TEST)
 deploy = '24net.prototxt'
 caffemodel = '24net.caffemodel'
 net_24 = caffe.Net(deploy,caffemodel,caffe.TEST)
-
 deploy = '48net.prototxt'
 caffemodel = '48net.caffemodel'
 net_48 = caffe.Net(deploy,caffemodel,caffe.TEST)
@@ -79,8 +78,15 @@ def detectFace(img_path,threshold):
 
     return rectangles
 
-threshold = [0.6,0.6,0.7]
+threshold = [0.4,0.4,0.4]
 imgpath = "../prepare_data/WIDER_train/images/0--Parade/0_Parade_marchingband_1_588.jpg"
+imgpath = "../prepare_data/WIDER_val/images/11--Meeting/11_Meeting_Meeting_11_Meeting_Meeting_11_102.jpg"
+imgpath = "../prepare_data/WIDER_val/images/11--Meeting/11_Meeting_Meeting_11_Meeting_Meeting_11_865.jpg"
+imgpath = "../prepare_data/WIDER_val/images/11--Meeting/11_Meeting_Meeting_11_Meeting_Meeting_11_406.jpg"
+imgpath = "../prepare_data/WIDER_val/images/49--Greeting/49_Greeting_peoplegreeting_49_890.jpg"
+
+rectangles = detectFace(imgpath,threshold)
+
 rectangles = detectFace(imgpath,threshold)
 img = cv2.imread(imgpath)
 draw = img.copy()

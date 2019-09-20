@@ -20,16 +20,16 @@ ensure_directory_exists(neg_save_dir)
 
 if not os.path.exists(save_dir):
     os.mkdir(save_dir)
-f1 = open(os.path.join(save_dir, 'pos_24.txt'), 'w')
-f2 = open(os.path.join(save_dir, 'neg_24.txt'), 'w')
-f3 = open(os.path.join(save_dir, 'part_24.txt'), 'w')
+f1 = open(os.path.join(save_dir, 'pos_24.txt'), 'aw')
+f2 = open(os.path.join(save_dir, 'neg_24.txt'), 'aw')
+f3 = open(os.path.join(save_dir, 'part_24.txt'), 'aw')
 with open(anno_file, 'r') as f:
     annotations = f.readlines()
 num = len(annotations)
 print"%d pics in total" % num
-p_idx = 0 # positive
-n_idx = 0 # negative
-d_idx = 0 # dont care
+p_idx = 39131 # positive
+n_idx = 2180998 # negative
+d_idx = 228146 # dont care
 idx = 0
 box_idx = 0
 for annotation in annotations:
@@ -45,7 +45,7 @@ for annotation in annotations:
     height, width, channel = img.shape
 
     neg_num = 0
-    while neg_num < 50:
+    while neg_num < 30:
         size = npr.randint(40, min(width, height) / 2)
         nx = npr.randint(0, width - size)
         ny = npr.randint(0, height - size)

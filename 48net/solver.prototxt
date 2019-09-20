@@ -1,7 +1,10 @@
 net : "train48.prototxt"
 # The base learning rate, momentum and the weight decay of the network.
+type:"SGD"
 base_lr: 0.0001
+#base_lr: 0.01
 momentum: 0.9
+#weight_decay: 0.004
 weight_decay: 0.004
 # The learning rate policy
 lr_policy: "step"

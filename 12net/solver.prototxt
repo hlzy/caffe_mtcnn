@@ -10,5 +10,6 @@ gamma: 0.8
 display: 1000   #500
 max_iter: 500000
 snapshot: 10000
-snapshot_prefix: "./models/"
+snapshot_prefix: "./models_mean/"
 solver_mode: GPU
+type:"Adam"

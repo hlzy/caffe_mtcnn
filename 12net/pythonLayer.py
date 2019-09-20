@@ -38,8 +38,8 @@ class Data_Layer_train(caffe.Layer):
 
     def forward(self, bottom, top):
 #        loss_task = random.randint(0,2)
-        #loss_task = random.randint(0,1)
-        loss_task = 0
+        loss_task = random.randint(0,1)
+        #loss_task = 0
         for itt in range(self.batch_size):
             im, label, roi, pts= self.batch_loader.load_next_image(loss_task)
             #print(label)

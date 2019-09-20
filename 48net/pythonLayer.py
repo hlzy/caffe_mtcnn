@@ -36,6 +36,7 @@ class Data_Layer_train(caffe.Layer):
 
     def forward(self, bottom, top):
         loss_task = random.randint(0,1)
+        #loss_task = 1
         for itt in range(self.batch_size):
             im, label, roi, pts= self.batch_loader.load_next_image(loss_task)
             top[0].data[itt, ...] = im
@@ -57,7 +58,7 @@ class BatchLoader(object):
         self.pts_list = []
         print("Start Reading Classify Data into Memory...")
         if imdb_exit:
-            fid = open('48/cls.imdb','rb')
+            fid = open('48/cls_0.imdb','rb')
             self.cls_list = pickle.load(fid)
             fid.close()
         else:
@@ -83,11 +84,13 @@ class BatchLoader(object):
                 self.cls_list.append([im,label,roi,pts])
         random.shuffle(self.cls_list)
         self.cls_cur = 0
+        self.cur_file_index = 1
+        self.roi_file_index = 1
         print("\n",str(len(self.cls_list))," Classify Data have been read into Memory...")
 
         print("Start Reading Regression Data into Memory...")
         if imdb_exit:
-            fid = open('48/roi.imdb','rb')
+            fid = open('48/roi_0.imdb','rb')
             self.roi_list = pickle.load(fid)
             fid.close()
         else:
@@ -153,8 +156,13 @@ class BatchLoader(object):
     def load_next_image(self,loss_task): 
         if loss_task == 0:
             if self.cls_cur == len(self.cls_list):
+                fid = open('48/cls_%d.imdb' % self.cur_file_index,'rb')
+                self.cls_list = pickle.load(fid)
+                fid.close()
                 self.cls_cur = 0
+                self.cur_file_index = (self.cur_file_index + 1 ) % 5
                 random.shuffle(self.cls_list)
+
             cur_data = self.cls_list[self.cls_cur]  # Get the image index
             im       = cur_data[0]
             label    = cur_data[1]
@@ -167,8 +175,13 @@ class BatchLoader(object):
 
         if loss_task == 1:
             if self.roi_cur == len(self.roi_list):
+                fid = open('48/roi_%d.imdb' % self.roi_file_index,'rb')
+                self.roi_list = pickle.load(fid)
+                fid.close()
                 self.roi_cur = 0
+                self.roi_file_index = (self.roi_file_index + 1 ) % 5
                 random.shuffle(self.roi_list)
+
             cur_data = self.roi_list[self.roi_cur]  # Get the image index
             im             = cur_data[0]
             label    = -1

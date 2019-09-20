@@ -4,8 +4,6 @@ import cv2
 import caffe
 import numpy as np
 import random
-#import cPickle as pickle
-#import _pickle as pickle
 import joblib as pickle
 imdb_exit = True
 
@@ -37,8 +35,8 @@ class Data_Layer_train(caffe.Layer):
         pass
 
     def forward(self, bottom, top):
-        #loss_task = random.randint(0,1)
-        loss_task = 0 
+        loss_task = random.randint(0,1)
+        #loss_task = 1
         for itt in range(self.batch_size):
             im, label, roi, pts= self.batch_loader.load_next_image(loss_task)
             top[0].data[itt, ...] = im
@@ -60,11 +58,11 @@ class BatchLoader(object):
         self.pts_list = []
         print("Start Reading Classify Data into Memory...")
         if imdb_exit:
-            fid = open('24/cls.imdb','rb')
+            fid = open('24/cls_0.imdb','rb')
             self.cls_list = pickle.load(fid)
             fid.close()
         else:
-            fid = open(cls_list,'rb')
+            fid = open(cls_list,'r')
             lines = fid.readlines()
             fid.close()
             cur_=0
@@ -86,15 +84,17 @@ class BatchLoader(object):
                 self.cls_list.append([im,label,roi,pts])
         random.shuffle(self.cls_list)
         self.cls_cur = 0
+        self.cur_file_index = 1
+        self.roi_file_index = 1
         print("\n",str(len(self.cls_list))," Classify Data have been read into Memory...")
 
         print("Start Reading Regression Data into Memory...")
         if imdb_exit:
-            fid = open('24/roi.imdb','rb')
+            fid = open('24/roi_0.imdb','rb')
             self.roi_list = pickle.load(fid)
             fid.close()
         else:
-            fid = open(roi_list,'rb')
+            fid = open(roi_list,'r')
             lines = fid.readlines()
             fid.close()
             cur_=0
@@ -125,7 +125,7 @@ class BatchLoader(object):
             #self.pts_list = pickle.load(fid)
             #fid.close()
         else:
-            fid = open(pts_list,'rb')
+            fid = open(pts_list,'r')
             lines = fid.readlines()
             fid.close()
             cur_=0
@@ -141,7 +141,7 @@ class BatchLoader(object):
                     im = cv2.resize(im,(int(self.im_shape),int(self.im_shape)))
                 im = np.swapaxes(im, 0, 2)
                 im -= self.mean
-                label    = -1
+                label    = int(words[1])
                 roi      = [-1,-1,-1,-1]
                 pts         = [float(words[ 6]),float(words[ 7]),
                             float(words[ 8]),float(words[ 9]),
@@ -156,10 +156,13 @@ class BatchLoader(object):
     def load_next_image(self,loss_task): 
         if loss_task == 0:
             if self.cls_cur == len(self.cls_list):
+                fid = open('24/cls_%d.imdb' % self.cur_file_index,'rb')
+                self.cls_list = pickle.load(fid)
+                fid.close()
                 self.cls_cur = 0
+                self.cur_file_index = (self.cur_file_index + 1 ) % 6
                 random.shuffle(self.cls_list)
-            while self.cls_list[self.cls_cur][1] != 1:
-                self.cls_cur += 1
+
             cur_data = self.cls_list[self.cls_cur]  # Get the image index
             im       = cur_data[0]
             label    = cur_data[1]
@@ -172,8 +175,13 @@ class BatchLoader(object):
 
         if loss_task == 1:
             if self.roi_cur == len(self.roi_list):
+                fid = open('24/roi_%d.imdb' % self.roi_file_index,'rb')
+                self.roi_list = pickle.load(fid)
+                fid.close()
                 self.roi_cur = 0
+                self.roi_file_index = (self.roi_file_index + 1 ) % 6
                 random.shuffle(self.roi_list)
+
             cur_data = self.roi_list[self.roi_cur]  # Get the image index
             im             = cur_data[0]
             label    = -1
@@ -273,3 +281,4 @@ class cls_Layer(caffe.Layer):
         if propagate_down[1] and self.count!=0:
             bottom[1].diff[...]=0
             bottom[1].diff[self.valid_index]=top[1].diff[...]
+

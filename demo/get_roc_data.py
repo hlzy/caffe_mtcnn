@@ -163,7 +163,7 @@ def main():
     #deploy = '12net.prototxt'
     #caffemodel = '12net.caffemodel'
     deploy = '../12net/12net.prototxt'
-    caffemodel = '../12net/12net.caffemodel'
+    caffemodel = '../12net/models/solver_iter_500000.caffemodel'
 
     net_12 = caffe.Net(deploy,caffemodel,caffe.TEST)
 

@@ -1,0 +1,1835 @@
+I0915 23:04:48.602815 15477 upgrade_proto.cpp:1113] snapshot_prefix was a directory and is replaced to ./models/solver
+I0915 23:04:48.603036 15477 caffe.cpp:204] Using GPUs 0
+I0915 23:04:49.340869 15477 caffe.cpp:209] GPU 0: TITAN V
+I0915 23:04:49.675236 15477 solver.cpp:45] Initializing solver from parameters: 
+base_lr: 0.001
+display: 500
+max_iter: 100000
+lr_policy: "step"
+gamma: 0.8
+momentum: 0.9
+weight_decay: 0.004
+stepsize: 30000
+snapshot: 10000
+snapshot_prefix: "./models/solver"
+solver_mode: GPU
+device_id: 0
+net: "train48.prototxt"
+train_state {
+  level: 0
+  stage: ""
+}
+weights: "48net-only-cls.caffemodel"
+I0915 23:04:49.675396 15477 solver.cpp:102] Creating training net from net file: train48.prototxt
+I0915 23:04:49.675618 15477 net.cpp:53] Initializing net from parameters: 
+name: "face_48"
+state {
+  phase: TRAIN
+  level: 0
+  stage: ""
+}
+layer {
+  name: "PythonLayer"
+  type: "Python"
+  top: "data"
+  top: "label"
+  top: "roi"
+  top: "pts"
+  python_param {
+    module: "pythonLayer"
+    layer: "Data_Layer_train"
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu1"
+  type: "PReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "PReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv3"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "relu3"
+  type: "PReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "pool3"
+  type: "Pooling"
+  bottom: "conv3"
+  top: "pool3"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv4"
+  type: "Convolution"
+  bottom: "pool3"
+  top: "conv4"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output: 128
+    kernel_size: 2
+    stride: 1
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "relu4"
+  type: "PReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "fc5"
+  type: "InnerProduct"
+  bottom: "conv4"
+  top: "fc5"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  inner_product_param {
+    num_output: 256
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "relu5"
+  type: "PReLU"
+  bottom: "fc5"
+  top: "fc5"
+}
+layer {
+  name: "drop5"
+  type: "Dropout"
+  bottom: "fc5"
+  top: "fc5"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc6-1"
+  type: "InnerProduct"
+  bottom: "fc5"
+  top: "fc6-1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "cls_bridge"
+  type: "Python"
+  bottom: "fc6-1"
+  bottom: "label"
+  top: "fc6-1-valid"
+  top: "label-valid"
+  python_param {
+    module: "pythonLayer"
+    layer: "cls_Layer"
+  }
+}
+layer {
+  name: "ClassifyLoss"
+  type: "SoftmaxWithLoss"
+  bottom: "fc6-1-valid"
+  bottom: "label-valid"
+  top: "ClassifyLoss"
+  loss_weight: 1
+  propagate_down: true
+  propagate_down: false
+}
+layer {
+  name: "cls_Acc"
+  type: "Accuracy"
+  bottom: "fc6-1-valid"
+  bottom: "label-valid"
+  top: "cls_Acc"
+  include {
+    phase: TRAIN
+  }
+}
+layer {
+  name: "fc6-2"
+  type: "InnerProduct"
+  bottom: "fc5"
+  top: "fc6-2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  inner_product_param {
+    num_output: 4
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "RegressionLoss"
+  type: "Python"
+  bottom: "fc6-2"
+  bottom: "roi"
+  top: "RegressionLoss"
+  loss_weight: 0.5
+  python_param {
+    module: "pythonLayer"
+    layer: "regression_Layer"
+  }
+}
+layer {
+  name: "fc6-3"
+  type: "InnerProduct"
+  bottom: "fc5"
+  top: "fc6-3"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 1
+  }
+  inner_product_param {
+    num_output: 10
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "LandmarkLoss"
+  type: "Python"
+  bottom: "fc6-3"
+  bottom: "pts"
+  top: "LandmarkLoss"
+  loss_weight: 1
+  python_param {
+    module: "pythonLayer"
+    layer: "regression_Layer"
+  }
+}
+I0915 23:04:49.675783 15477 layer_factory.hpp:77] Creating layer PythonLayer
+I0915 23:04:50.150357 15477 net.cpp:86] Creating Layer PythonLayer
+I0915 23:04:50.150401 15477 net.cpp:382] PythonLayer -> data
+I0915 23:04:50.150424 15477 net.cpp:382] PythonLayer -> label
+I0915 23:04:50.150432 15477 net.cpp:382] PythonLayer -> roi
+I0915 23:04:50.150437 15477 net.cpp:382] PythonLayer -> pts
+I0915 23:05:00.509853 15477 net.cpp:124] Setting up PythonLayer
+I0915 23:05:00.509896 15477 net.cpp:131] Top shape: 64 3 48 48 (442368)
+I0915 23:05:00.509907 15477 net.cpp:131] Top shape: 64 1 (64)
+I0915 23:05:00.509909 15477 net.cpp:131] Top shape: 64 4 (256)
+I0915 23:05:00.509913 15477 net.cpp:131] Top shape: 64 10 (640)
+I0915 23:05:00.509917 15477 net.cpp:139] Memory required for data: 1773312
+I0915 23:05:00.509929 15477 layer_factory.hpp:77] Creating layer conv1
+I0915 23:05:00.509969 15477 net.cpp:86] Creating Layer conv1
+I0915 23:05:00.509977 15477 net.cpp:408] conv1 <- data
+I0915 23:05:00.509995 15477 net.cpp:382] conv1 -> conv1
+I0915 23:05:01.602135 15477 net.cpp:124] Setting up conv1
+I0915 23:05:01.602172 15477 net.cpp:131] Top shape: 64 32 46 46 (4333568)
+I0915 23:05:01.602180 15477 net.cpp:139] Memory required for data: 19107584
+I0915 23:05:01.602207 15477 layer_factory.hpp:77] Creating layer relu1
+I0915 23:05:01.602216 15477 net.cpp:86] Creating Layer relu1
+I0915 23:05:01.602221 15477 net.cpp:408] relu1 <- conv1
+I0915 23:05:01.602226 15477 net.cpp:369] relu1 -> conv1 (in-place)
+I0915 23:05:01.602332 15477 net.cpp:124] Setting up relu1
+I0915 23:05:01.602339 15477 net.cpp:131] Top shape: 64 32 46 46 (4333568)
+I0915 23:05:01.602344 15477 net.cpp:139] Memory required for data: 36441856
+I0915 23:05:01.602349 15477 layer_factory.hpp:77] Creating layer pool1
+I0915 23:05:01.602355 15477 net.cpp:86] Creating Layer pool1
+I0915 23:05:01.602358 15477 net.cpp:408] pool1 <- conv1
+I0915 23:05:01.602362 15477 net.cpp:382] pool1 -> pool1
+I0915 23:05:01.602391 15477 net.cpp:124] Setting up pool1
+I0915 23:05:01.602396 15477 net.cpp:131] Top shape: 64 32 23 23 (1083392)
+I0915 23:05:01.602399 15477 net.cpp:139] Memory required for data: 40775424
+I0915 23:05:01.602402 15477 layer_factory.hpp:77] Creating layer conv2
+I0915 23:05:01.602411 15477 net.cpp:86] Creating Layer conv2
+I0915 23:05:01.602416 15477 net.cpp:408] conv2 <- pool1
+I0915 23:05:01.602419 15477 net.cpp:382] conv2 -> conv2
+I0915 23:05:01.603919 15477 net.cpp:124] Setting up conv2
+I0915 23:05:01.603936 15477 net.cpp:131] Top shape: 64 64 21 21 (1806336)
+I0915 23:05:01.603942 15477 net.cpp:139] Memory required for data: 48000768
+I0915 23:05:01.603957 15477 layer_factory.hpp:77] Creating layer relu2
+I0915 23:05:01.603974 15477 net.cpp:86] Creating Layer relu2
+I0915 23:05:01.603978 15477 net.cpp:408] relu2 <- conv2
+I0915 23:05:01.603983 15477 net.cpp:369] relu2 -> conv2 (in-place)
+I0915 23:05:01.604049 15477 net.cpp:124] Setting up relu2
+I0915 23:05:01.604055 15477 net.cpp:131] Top shape: 64 64 21 21 (1806336)
+I0915 23:05:01.604059 15477 net.cpp:139] Memory required for data: 55226112
+I0915 23:05:01.604063 15477 layer_factory.hpp:77] Creating layer pool2
+I0915 23:05:01.604068 15477 net.cpp:86] Creating Layer pool2
+I0915 23:05:01.604071 15477 net.cpp:408] pool2 <- conv2
+I0915 23:05:01.604075 15477 net.cpp:382] pool2 -> pool2
+I0915 23:05:01.604094 15477 net.cpp:124] Setting up pool2
+I0915 23:05:01.604099 15477 net.cpp:131] Top shape: 64 64 10 10 (409600)
+I0915 23:05:01.604104 15477 net.cpp:139] Memory required for data: 56864512
+I0915 23:05:01.604107 15477 layer_factory.hpp:77] Creating layer conv3
+I0915 23:05:01.604113 15477 net.cpp:86] Creating Layer conv3
+I0915 23:05:01.604116 15477 net.cpp:408] conv3 <- pool2
+I0915 23:05:01.604121 15477 net.cpp:382] conv3 -> conv3
+I0915 23:05:01.605609 15477 net.cpp:124] Setting up conv3
+I0915 23:05:01.605625 15477 net.cpp:131] Top shape: 64 64 8 8 (262144)
+I0915 23:05:01.605631 15477 net.cpp:139] Memory required for data: 57913088
+I0915 23:05:01.605638 15477 layer_factory.hpp:77] Creating layer relu3
+I0915 23:05:01.605643 15477 net.cpp:86] Creating Layer relu3
+I0915 23:05:01.605646 15477 net.cpp:408] relu3 <- conv3
+I0915 23:05:01.605650 15477 net.cpp:369] relu3 -> conv3 (in-place)
+I0915 23:05:01.605700 15477 net.cpp:124] Setting up relu3
+I0915 23:05:01.605705 15477 net.cpp:131] Top shape: 64 64 8 8 (262144)
+I0915 23:05:01.605710 15477 net.cpp:139] Memory required for data: 58961664
+I0915 23:05:01.605715 15477 layer_factory.hpp:77] Creating layer pool3
+I0915 23:05:01.605720 15477 net.cpp:86] Creating Layer pool3
+I0915 23:05:01.605723 15477 net.cpp:408] pool3 <- conv3
+I0915 23:05:01.605727 15477 net.cpp:382] pool3 -> pool3
+I0915 23:05:01.605746 15477 net.cpp:124] Setting up pool3
+I0915 23:05:01.605752 15477 net.cpp:131] Top shape: 64 64 4 4 (65536)
+I0915 23:05:01.605756 15477 net.cpp:139] Memory required for data: 59223808
+I0915 23:05:01.605759 15477 layer_factory.hpp:77] Creating layer conv4
+I0915 23:05:01.605767 15477 net.cpp:86] Creating Layer conv4
+I0915 23:05:01.605769 15477 net.cpp:408] conv4 <- pool3
+I0915 23:05:01.605773 15477 net.cpp:382] conv4 -> conv4
+I0915 23:05:01.608270 15477 net.cpp:124] Setting up conv4
+I0915 23:05:01.608289 15477 net.cpp:131] Top shape: 64 128 3 3 (73728)
+I0915 23:05:01.608294 15477 net.cpp:139] Memory required for data: 59518720
+I0915 23:05:01.608300 15477 layer_factory.hpp:77] Creating layer relu4
+I0915 23:05:01.608305 15477 net.cpp:86] Creating Layer relu4
+I0915 23:05:01.608309 15477 net.cpp:408] relu4 <- conv4
+I0915 23:05:01.608314 15477 net.cpp:369] relu4 -> conv4 (in-place)
+I0915 23:05:01.608361 15477 net.cpp:124] Setting up relu4
+I0915 23:05:01.608366 15477 net.cpp:131] Top shape: 64 128 3 3 (73728)
+I0915 23:05:01.608369 15477 net.cpp:139] Memory required for data: 59813632
+I0915 23:05:01.608373 15477 layer_factory.hpp:77] Creating layer fc5
+I0915 23:05:01.608381 15477 net.cpp:86] Creating Layer fc5
+I0915 23:05:01.608384 15477 net.cpp:408] fc5 <- conv4
+I0915 23:05:01.608389 15477 net.cpp:382] fc5 -> fc5
+I0915 23:05:01.609597 15477 net.cpp:124] Setting up fc5
+I0915 23:05:01.609607 15477 net.cpp:131] Top shape: 64 256 (16384)
+I0915 23:05:01.609611 15477 net.cpp:139] Memory required for data: 59879168
+I0915 23:05:01.609618 15477 layer_factory.hpp:77] Creating layer relu5
+I0915 23:05:01.609624 15477 net.cpp:86] Creating Layer relu5
+I0915 23:05:01.609628 15477 net.cpp:408] relu5 <- fc5
+I0915 23:05:01.609632 15477 net.cpp:369] relu5 -> fc5 (in-place)
+I0915 23:05:01.609674 15477 net.cpp:124] Setting up relu5
+I0915 23:05:01.609679 15477 net.cpp:131] Top shape: 64 256 (16384)
+I0915 23:05:01.609683 15477 net.cpp:139] Memory required for data: 59944704
+I0915 23:05:01.609694 15477 layer_factory.hpp:77] Creating layer drop5
+I0915 23:05:01.609704 15477 net.cpp:86] Creating Layer drop5
+I0915 23:05:01.609714 15477 net.cpp:408] drop5 <- fc5
+I0915 23:05:01.609719 15477 net.cpp:369] drop5 -> fc5 (in-place)
+I0915 23:05:01.609736 15477 net.cpp:124] Setting up drop5
+I0915 23:05:01.609740 15477 net.cpp:131] Top shape: 64 256 (16384)
+I0915 23:05:01.609743 15477 net.cpp:139] Memory required for data: 60010240
+I0915 23:05:01.609746 15477 layer_factory.hpp:77] Creating layer fc5_drop5_0_split
+I0915 23:05:01.609753 15477 net.cpp:86] Creating Layer fc5_drop5_0_split
+I0915 23:05:01.609757 15477 net.cpp:408] fc5_drop5_0_split <- fc5
+I0915 23:05:01.609761 15477 net.cpp:382] fc5_drop5_0_split -> fc5_drop5_0_split_0
+I0915 23:05:01.609766 15477 net.cpp:382] fc5_drop5_0_split -> fc5_drop5_0_split_1
+I0915 23:05:01.609771 15477 net.cpp:382] fc5_drop5_0_split -> fc5_drop5_0_split_2
+I0915 23:05:01.609797 15477 net.cpp:124] Setting up fc5_drop5_0_split
+I0915 23:05:01.609802 15477 net.cpp:131] Top shape: 64 256 (16384)
+I0915 23:05:01.609807 15477 net.cpp:131] Top shape: 64 256 (16384)
+I0915 23:05:01.609809 15477 net.cpp:131] Top shape: 64 256 (16384)
+I0915 23:05:01.609812 15477 net.cpp:139] Memory required for data: 60206848
+I0915 23:05:01.609817 15477 layer_factory.hpp:77] Creating layer fc6-1
+I0915 23:05:01.609822 15477 net.cpp:86] Creating Layer fc6-1
+I0915 23:05:01.609827 15477 net.cpp:408] fc6-1 <- fc5_drop5_0_split_0
+I0915 23:05:01.609830 15477 net.cpp:382] fc6-1 -> fc6-1
+I0915 23:05:01.609882 15477 net.cpp:124] Setting up fc6-1
+I0915 23:05:01.609887 15477 net.cpp:131] Top shape: 64 2 (128)
+I0915 23:05:01.609890 15477 net.cpp:139] Memory required for data: 60207360
+I0915 23:05:01.609897 15477 layer_factory.hpp:77] Creating layer cls_bridge
+I0915 23:05:01.609969 15477 net.cpp:86] Creating Layer cls_bridge
+I0915 23:05:01.609974 15477 net.cpp:408] cls_bridge <- fc6-1
+I0915 23:05:01.609978 15477 net.cpp:408] cls_bridge <- label
+I0915 23:05:01.609982 15477 net.cpp:382] cls_bridge -> fc6-1-valid
+I0915 23:05:01.609988 15477 net.cpp:382] cls_bridge -> label-valid
+I0915 23:05:01.610106 15477 net.cpp:124] Setting up cls_bridge
+I0915 23:05:01.610113 15477 net.cpp:131] Top shape: 64 2 (128)
+I0915 23:05:01.610117 15477 net.cpp:131] Top shape: 64 1 (64)
+I0915 23:05:01.610121 15477 net.cpp:139] Memory required for data: 60208128
+I0915 23:05:01.610123 15477 layer_factory.hpp:77] Creating layer fc6-1-valid_cls_bridge_0_split
+I0915 23:05:01.610128 15477 net.cpp:86] Creating Layer fc6-1-valid_cls_bridge_0_split
+I0915 23:05:01.610131 15477 net.cpp:408] fc6-1-valid_cls_bridge_0_split <- fc6-1-valid
+I0915 23:05:01.610136 15477 net.cpp:382] fc6-1-valid_cls_bridge_0_split -> fc6-1-valid_cls_bridge_0_split_0
+I0915 23:05:01.610141 15477 net.cpp:382] fc6-1-valid_cls_bridge_0_split -> fc6-1-valid_cls_bridge_0_split_1
+I0915 23:05:01.610158 15477 net.cpp:124] Setting up fc6-1-valid_cls_bridge_0_split
+I0915 23:05:01.610164 15477 net.cpp:131] Top shape: 64 2 (128)
+I0915 23:05:01.610167 15477 net.cpp:131] Top shape: 64 2 (128)
+I0915 23:05:01.610170 15477 net.cpp:139] Memory required for data: 60209152
+I0915 23:05:01.610173 15477 layer_factory.hpp:77] Creating layer label-valid_cls_bridge_1_split
+I0915 23:05:01.610177 15477 net.cpp:86] Creating Layer label-valid_cls_bridge_1_split
+I0915 23:05:01.610182 15477 net.cpp:408] label-valid_cls_bridge_1_split <- label-valid
+I0915 23:05:01.610184 15477 net.cpp:382] label-valid_cls_bridge_1_split -> label-valid_cls_bridge_1_split_0
+I0915 23:05:01.610189 15477 net.cpp:382] label-valid_cls_bridge_1_split -> label-valid_cls_bridge_1_split_1
+I0915 23:05:01.610206 15477 net.cpp:124] Setting up label-valid_cls_bridge_1_split
+I0915 23:05:01.610213 15477 net.cpp:131] Top shape: 64 1 (64)
+I0915 23:05:01.610215 15477 net.cpp:131] Top shape: 64 1 (64)
+I0915 23:05:01.610219 15477 net.cpp:139] Memory required for data: 60209664
+I0915 23:05:01.610224 15477 layer_factory.hpp:77] Creating layer ClassifyLoss
+I0915 23:05:01.610229 15477 net.cpp:86] Creating Layer ClassifyLoss
+I0915 23:05:01.610240 15477 net.cpp:408] ClassifyLoss <- fc6-1-valid_cls_bridge_0_split_0
+I0915 23:05:01.610244 15477 net.cpp:408] ClassifyLoss <- label-valid_cls_bridge_1_split_0
+I0915 23:05:01.610252 15477 net.cpp:382] ClassifyLoss -> ClassifyLoss
+I0915 23:05:01.610260 15477 layer_factory.hpp:77] Creating layer ClassifyLoss
+I0915 23:05:01.610563 15477 net.cpp:124] Setting up ClassifyLoss
+I0915 23:05:01.610575 15477 net.cpp:131] Top shape: (1)
+I0915 23:05:01.610579 15477 net.cpp:134]     with loss weight 1
+I0915 23:05:01.610601 15477 net.cpp:139] Memory required for data: 60209668
+I0915 23:05:01.610605 15477 layer_factory.hpp:77] Creating layer cls_Acc
+I0915 23:05:01.610929 15477 net.cpp:86] Creating Layer cls_Acc
+I0915 23:05:01.610936 15477 net.cpp:408] cls_Acc <- fc6-1-valid_cls_bridge_0_split_1
+I0915 23:05:01.610941 15477 net.cpp:408] cls_Acc <- label-valid_cls_bridge_1_split_1
+I0915 23:05:01.610946 15477 net.cpp:382] cls_Acc -> cls_Acc
+I0915 23:05:01.610957 15477 net.cpp:124] Setting up cls_Acc
+I0915 23:05:01.610961 15477 net.cpp:131] Top shape: (1)
+I0915 23:05:01.610965 15477 net.cpp:139] Memory required for data: 60209672
+I0915 23:05:01.610968 15477 layer_factory.hpp:77] Creating layer fc6-2
+I0915 23:05:01.610975 15477 net.cpp:86] Creating Layer fc6-2
+I0915 23:05:01.610977 15477 net.cpp:408] fc6-2 <- fc5_drop5_0_split_1
+I0915 23:05:01.610981 15477 net.cpp:382] fc6-2 -> fc6-2
+I0915 23:05:01.611048 15477 net.cpp:124] Setting up fc6-2
+I0915 23:05:01.611053 15477 net.cpp:131] Top shape: 64 4 (256)
+I0915 23:05:01.611057 15477 net.cpp:139] Memory required for data: 60210696
+I0915 23:05:01.611063 15477 layer_factory.hpp:77] Creating layer RegressionLoss
+I0915 23:05:01.611093 15477 net.cpp:86] Creating Layer RegressionLoss
+I0915 23:05:01.611099 15477 net.cpp:408] RegressionLoss <- fc6-2
+I0915 23:05:01.611102 15477 net.cpp:408] RegressionLoss <- roi
+I0915 23:05:01.611107 15477 net.cpp:382] RegressionLoss -> RegressionLoss
+I0915 23:05:01.611217 15477 net.cpp:124] Setting up RegressionLoss
+I0915 23:05:01.611224 15477 net.cpp:131] Top shape: 1 (1)
+I0915 23:05:01.611228 15477 net.cpp:134]     with loss weight 0.5
+I0915 23:05:01.611233 15477 net.cpp:139] Memory required for data: 60210700
+I0915 23:05:01.611236 15477 layer_factory.hpp:77] Creating layer fc6-3
+I0915 23:05:01.611243 15477 net.cpp:86] Creating Layer fc6-3
+I0915 23:05:01.611245 15477 net.cpp:408] fc6-3 <- fc5_drop5_0_split_2
+I0915 23:05:01.611251 15477 net.cpp:382] fc6-3 -> fc6-3
+I0915 23:05:01.611317 15477 net.cpp:124] Setting up fc6-3
+I0915 23:05:01.611323 15477 net.cpp:131] Top shape: 64 10 (640)
+I0915 23:05:01.611326 15477 net.cpp:139] Memory required for data: 60213260
+I0915 23:05:01.611331 15477 layer_factory.hpp:77] Creating layer LandmarkLoss
+I0915 23:05:01.611346 15477 net.cpp:86] Creating Layer LandmarkLoss
+I0915 23:05:01.611351 15477 net.cpp:408] LandmarkLoss <- fc6-3
+I0915 23:05:01.611356 15477 net.cpp:408] LandmarkLoss <- pts
+I0915 23:05:01.611359 15477 net.cpp:382] LandmarkLoss -> LandmarkLoss
+I0915 23:05:01.611418 15477 net.cpp:124] Setting up LandmarkLoss
+I0915 23:05:01.611424 15477 net.cpp:131] Top shape: 1 (1)
+I0915 23:05:01.611428 15477 net.cpp:134]     with loss weight 1
+I0915 23:05:01.611433 15477 net.cpp:139] Memory required for data: 60213264
+I0915 23:05:01.611435 15477 net.cpp:200] LandmarkLoss needs backward computation.
+I0915 23:05:01.611443 15477 net.cpp:200] fc6-3 needs backward computation.
+I0915 23:05:01.611446 15477 net.cpp:200] RegressionLoss needs backward computation.
+I0915 23:05:01.611450 15477 net.cpp:200] fc6-2 needs backward computation.
+I0915 23:05:01.611454 15477 net.cpp:202] cls_Acc does not need backward computation.
+I0915 23:05:01.611457 15477 net.cpp:200] ClassifyLoss needs backward computation.
+I0915 23:05:01.611461 15477 net.cpp:202] label-valid_cls_bridge_1_split does not need backward computation.
+I0915 23:05:01.611465 15477 net.cpp:200] fc6-1-valid_cls_bridge_0_split needs backward computation.
+I0915 23:05:01.611469 15477 net.cpp:200] cls_bridge needs backward computation.
+I0915 23:05:01.611474 15477 net.cpp:200] fc6-1 needs backward computation.
+I0915 23:05:01.611483 15477 net.cpp:200] fc5_drop5_0_split needs backward computation.
+I0915 23:05:01.611491 15477 net.cpp:200] drop5 needs backward computation.
+I0915 23:05:01.611495 15477 net.cpp:200] relu5 needs backward computation.
+I0915 23:05:01.611497 15477 net.cpp:200] fc5 needs backward computation.
+I0915 23:05:01.611501 15477 net.cpp:200] relu4 needs backward computation.
+I0915 23:05:01.611505 15477 net.cpp:200] conv4 needs backward computation.
+I0915 23:05:01.611508 15477 net.cpp:200] pool3 needs backward computation.
+I0915 23:05:01.611512 15477 net.cpp:200] relu3 needs backward computation.
+I0915 23:05:01.611515 15477 net.cpp:200] conv3 needs backward computation.
+I0915 23:05:01.611519 15477 net.cpp:200] pool2 needs backward computation.
+I0915 23:05:01.611522 15477 net.cpp:200] relu2 needs backward computation.
+I0915 23:05:01.611526 15477 net.cpp:200] conv2 needs backward computation.
+I0915 23:05:01.611529 15477 net.cpp:200] pool1 needs backward computation.
+I0915 23:05:01.611532 15477 net.cpp:200] relu1 needs backward computation.
+I0915 23:05:01.611536 15477 net.cpp:200] conv1 needs backward computation.
+I0915 23:05:01.611541 15477 net.cpp:202] PythonLayer does not need backward computation.
+I0915 23:05:01.611542 15477 net.cpp:244] This network produces output ClassifyLoss
+I0915 23:05:01.611546 15477 net.cpp:244] This network produces output LandmarkLoss
+I0915 23:05:01.611549 15477 net.cpp:244] This network produces output RegressionLoss
+I0915 23:05:01.611552 15477 net.cpp:244] This network produces output cls_Acc
+I0915 23:05:01.611567 15477 net.cpp:257] Network initialization done.
+I0915 23:05:01.611639 15477 solver.cpp:72] Finetuning from 48net-only-cls.caffemodel
+I0915 23:05:01.617233 15477 net.cpp:746] Ignoring source layer label_PythonLayer_1_split
+I0915 23:05:01.617437 15477 net.cpp:746] Ignoring source layer fc6-1_fc6-1_0_split
+I0915 23:05:01.617497 15477 solver.cpp:57] Solver scaffolding done.
+I0915 23:05:01.617923 15477 caffe.cpp:239] Starting Optimization
+I0915 23:05:01.617930 15477 solver.cpp:289] Solving face_48
+I0915 23:05:01.617934 15477 solver.cpp:290] Learning Rate Policy: step
+I0915 23:05:01.631062 15477 solver.cpp:239] Iteration 0 (-nan iter/s, 0.0131021s/500 iters), loss = 0.723462
+I0915 23:05:01.631095 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:05:01.631101 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:01.631106 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0606297 (* 0.5 = 0.0303148 loss)
+I0915 23:05:01.631110 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:05:01.631726 15477 sgd_solver.cpp:112] Iteration 0, lr = 0.001
+I0915 23:05:03.596118 15477 solver.cpp:239] Iteration 500 (254.448 iter/s, 1.96504s/500 iters), loss = 0.626493
+I0915 23:05:03.596170 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.626493 (* 1 = 0.626493 loss)
+I0915 23:05:03.596176 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:03.596181 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:05:03.596184 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.65625
+I0915 23:05:03.596189 15477 sgd_solver.cpp:112] Iteration 500, lr = 0.001
+I0915 23:05:05.537672 15477 solver.cpp:239] Iteration 1000 (257.531 iter/s, 1.94151s/500 iters), loss = 0.718066
+I0915 23:05:05.537725 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:05:05.537732 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:05.537737 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0498377 (* 0.5 = 0.0249189 loss)
+I0915 23:05:05.537740 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:05:05.537745 15477 sgd_solver.cpp:112] Iteration 1000, lr = 0.001
+I0915 23:05:12.414278 15477 solver.cpp:239] Iteration 1500 (72.7101 iter/s, 6.87662s/500 iters), loss = 0.296171
+I0915 23:05:12.414543 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.296171 (* 1 = 0.296171 loss)
+I0915 23:05:12.414580 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:12.414727 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:05:12.414749 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.890625
+I0915 23:05:12.414763 15477 sgd_solver.cpp:112] Iteration 1500, lr = 0.001
+I0915 23:05:14.354444 15477 solver.cpp:239] Iteration 2000 (257.742 iter/s, 1.93992s/500 iters), loss = 0.718353
+I0915 23:05:14.354496 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:05:14.354502 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:14.354506 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0504118 (* 0.5 = 0.0252059 loss)
+I0915 23:05:14.354511 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:05:14.354514 15477 sgd_solver.cpp:112] Iteration 2000, lr = 0.001
+I0915 23:05:26.098234 15477 solver.cpp:239] Iteration 2500 (42.5754 iter/s, 11.7439s/500 iters), loss = 0.713208
+I0915 23:05:26.100677 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:05:26.100703 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:26.100726 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0401217 (* 0.5 = 0.0200609 loss)
+I0915 23:05:26.100746 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:05:26.100761 15477 sgd_solver.cpp:112] Iteration 2500, lr = 0.001
+I0915 23:05:32.891593 15477 solver.cpp:239] Iteration 3000 (73.6481 iter/s, 6.78904s/500 iters), loss = 0.366076
+I0915 23:05:32.891649 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.366076 (* 1 = 0.366076 loss)
+I0915 23:05:32.891655 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:32.891660 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:05:32.891664 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.90625
+I0915 23:05:32.891667 15477 sgd_solver.cpp:112] Iteration 3000, lr = 0.001
+I0915 23:05:34.832585 15477 solver.cpp:239] Iteration 3500 (257.606 iter/s, 1.94095s/500 iters), loss = 0.71882
+I0915 23:05:34.832638 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:05:34.832644 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:34.832648 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0513462 (* 0.5 = 0.0256731 loss)
+I0915 23:05:34.832653 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:05:34.832656 15477 sgd_solver.cpp:112] Iteration 3500, lr = 0.001
+I0915 23:05:41.684212 15477 solver.cpp:239] Iteration 4000 (72.998 iter/s, 6.8495s/500 iters), loss = 0.267605
+I0915 23:05:41.684322 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.267606 (* 1 = 0.267606 loss)
+I0915 23:05:41.684342 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:41.684358 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:05:41.684370 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.859375
+I0915 23:05:41.684384 15477 sgd_solver.cpp:112] Iteration 4000, lr = 0.001
+I0915 23:05:43.633747 15477 solver.cpp:239] Iteration 4500 (256.483 iter/s, 1.94945s/500 iters), loss = 0.241002
+I0915 23:05:43.633797 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.241002 (* 1 = 0.241002 loss)
+I0915 23:05:43.633805 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:43.633810 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:05:43.633813 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.890625
+I0915 23:05:43.633818 15477 sgd_solver.cpp:112] Iteration 4500, lr = 0.001
+I0915 23:05:55.243584 15477 solver.cpp:239] Iteration 5000 (43.0685 iter/s, 11.6094s/500 iters), loss = 0.164458
+I0915 23:05:55.243652 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.164458 (* 1 = 0.164458 loss)
+I0915 23:05:55.243659 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:05:55.243664 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:05:55.243667 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:05:55.243691 15477 sgd_solver.cpp:112] Iteration 5000, lr = 0.001
+I0915 23:06:02.103894 15477 solver.cpp:239] Iteration 5500 (72.8888 iter/s, 6.85976s/500 iters), loss = 0.12957
+I0915 23:06:02.104167 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.12957 (* 1 = 0.12957 loss)
+I0915 23:06:02.104176 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:02.104180 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:06:02.104184 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:06:02.104188 15477 sgd_solver.cpp:112] Iteration 5500, lr = 0.001
+I0915 23:06:04.045472 15477 solver.cpp:239] Iteration 6000 (257.557 iter/s, 1.94132s/500 iters), loss = 0.709429
+I0915 23:06:04.045522 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:06:04.045528 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:04.045533 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0325631 (* 0.5 = 0.0162815 loss)
+I0915 23:06:04.045537 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:06:04.045542 15477 sgd_solver.cpp:112] Iteration 6000, lr = 0.001
+I0915 23:06:10.817652 15477 solver.cpp:239] Iteration 6500 (73.8549 iter/s, 6.77004s/500 iters), loss = 0.100348
+I0915 23:06:10.817759 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.100348 (* 1 = 0.100348 loss)
+I0915 23:06:10.817782 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:10.817797 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:06:10.817809 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:06:10.817823 15477 sgd_solver.cpp:112] Iteration 6500, lr = 0.001
+I0915 23:06:12.755405 15477 solver.cpp:239] Iteration 7000 (258.042 iter/s, 1.93767s/500 iters), loss = 0.161117
+I0915 23:06:12.755457 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.161117 (* 1 = 0.161117 loss)
+I0915 23:06:12.755465 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:12.755470 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:06:12.755472 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:06:12.755476 15477 sgd_solver.cpp:112] Iteration 7000, lr = 0.001
+I0915 23:06:24.543939 15477 solver.cpp:239] Iteration 7500 (42.417 iter/s, 11.7877s/500 iters), loss = 0.134137
+I0915 23:06:24.544061 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.134138 (* 1 = 0.134138 loss)
+I0915 23:06:24.544083 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:24.544100 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:06:24.544112 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:06:24.544126 15477 sgd_solver.cpp:112] Iteration 7500, lr = 0.001
+I0915 23:06:31.298156 15477 solver.cpp:239] Iteration 8000 (74.0496 iter/s, 6.75223s/500 iters), loss = 0.230152
+I0915 23:06:31.298209 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.230152 (* 1 = 0.230152 loss)
+I0915 23:06:31.298216 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:31.298220 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:06:31.298224 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.859375
+I0915 23:06:31.298229 15477 sgd_solver.cpp:112] Iteration 8000, lr = 0.001
+I0915 23:06:33.238032 15477 solver.cpp:239] Iteration 8500 (257.754 iter/s, 1.93983s/500 iters), loss = 0.719024
+I0915 23:06:33.238438 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:06:33.238462 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:33.238478 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0517544 (* 0.5 = 0.0258772 loss)
+I0915 23:06:33.238492 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:06:33.238504 15477 sgd_solver.cpp:112] Iteration 8500, lr = 0.001
+I0915 23:06:40.176678 15477 solver.cpp:239] Iteration 9000 (72.0998 iter/s, 6.93484s/500 iters), loss = 0.712667
+I0915 23:06:40.177096 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:06:40.177122 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:40.177140 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0390408 (* 0.5 = 0.0195204 loss)
+I0915 23:06:40.177153 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:06:40.177168 15477 sgd_solver.cpp:112] Iteration 9000, lr = 0.001
+I0915 23:06:42.132129 15477 solver.cpp:239] Iteration 9500 (255.747 iter/s, 1.95506s/500 iters), loss = 0.1667
+I0915 23:06:42.132179 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.1667 (* 1 = 0.1667 loss)
+I0915 23:06:42.132186 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:42.132192 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:06:42.132196 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:06:42.132201 15477 sgd_solver.cpp:112] Iteration 9500, lr = 0.001
+I0915 23:06:53.750880 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_10000.caffemodel
+I0915 23:06:53.776418 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_10000.solverstate
+I0915 23:06:53.785980 15477 solver.cpp:239] Iteration 10000 (42.904 iter/s, 11.6539s/500 iters), loss = 0.71207
+I0915 23:06:53.786057 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:06:53.786077 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:06:53.786092 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0378451 (* 0.5 = 0.0189226 loss)
+I0915 23:06:53.786104 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:06:53.786118 15477 sgd_solver.cpp:112] Iteration 10000, lr = 0.001
+I0915 23:07:00.614909 15477 solver.cpp:239] Iteration 10500 (73.2416 iter/s, 6.82672s/500 iters), loss = 0.249358
+I0915 23:07:00.615001 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.249357 (* 1 = 0.249357 loss)
+I0915 23:07:00.615020 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:00.615031 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:07:00.615041 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.859375
+I0915 23:07:00.615052 15477 sgd_solver.cpp:112] Iteration 10500, lr = 0.001
+I0915 23:07:02.571161 15477 solver.cpp:239] Iteration 11000 (255.6 iter/s, 1.95618s/500 iters), loss = 0.0858673
+I0915 23:07:02.571213 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0858666 (* 1 = 0.0858666 loss)
+I0915 23:07:02.571220 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:02.571225 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:07:02.571228 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:07:02.571233 15477 sgd_solver.cpp:112] Iteration 11000, lr = 0.001
+I0915 23:07:09.383595 15477 solver.cpp:239] Iteration 11500 (73.4166 iter/s, 6.81045s/500 iters), loss = 0.166912
+I0915 23:07:09.383893 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.166912 (* 1 = 0.166912 loss)
+I0915 23:07:09.383905 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:09.383910 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:07:09.383915 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:07:09.383920 15477 sgd_solver.cpp:112] Iteration 11500, lr = 0.001
+I0915 23:07:11.337527 15477 solver.cpp:239] Iteration 12000 (255.932 iter/s, 1.95365s/500 iters), loss = 0.711323
+I0915 23:07:11.337580 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:07:11.337586 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:11.337591 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0363493 (* 0.5 = 0.0181746 loss)
+I0915 23:07:11.337594 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:07:11.337599 15477 sgd_solver.cpp:112] Iteration 12000, lr = 0.001
+I0915 23:07:18.166235 15477 solver.cpp:239] Iteration 12500 (73.2261 iter/s, 6.82816s/500 iters), loss = 0.709447
+I0915 23:07:18.166589 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:07:18.166613 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:18.166630 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0325975 (* 0.5 = 0.0162987 loss)
+I0915 23:07:18.166644 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:07:18.166658 15477 sgd_solver.cpp:112] Iteration 12500, lr = 0.001
+I0915 23:07:29.924912 15477 solver.cpp:239] Iteration 13000 (42.53 iter/s, 11.7564s/500 iters), loss = 0.292671
+I0915 23:07:29.925057 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.292671 (* 1 = 0.292671 loss)
+I0915 23:07:29.925088 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:29.925113 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:07:29.925138 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.890625
+I0915 23:07:29.925160 15477 sgd_solver.cpp:112] Iteration 13000, lr = 0.001
+I0915 23:07:31.860982 15477 solver.cpp:239] Iteration 13500 (258.271 iter/s, 1.93595s/500 iters), loss = 0.714046
+I0915 23:07:31.861042 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:07:31.861050 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:31.861057 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0417957 (* 0.5 = 0.0208978 loss)
+I0915 23:07:31.861063 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:07:31.861069 15477 sgd_solver.cpp:112] Iteration 13500, lr = 0.001
+I0915 23:07:38.605656 15477 solver.cpp:239] Iteration 14000 (74.1562 iter/s, 6.74253s/500 iters), loss = 0.707581
+I0915 23:07:38.605777 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:07:38.605815 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:38.605825 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0288654 (* 0.5 = 0.0144327 loss)
+I0915 23:07:38.605832 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:07:38.605840 15477 sgd_solver.cpp:112] Iteration 14000, lr = 0.001
+I0915 23:07:40.557420 15477 solver.cpp:239] Iteration 14500 (256.191 iter/s, 1.95167s/500 iters), loss = 0.709816
+I0915 23:07:40.559556 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:07:40.559594 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:40.559624 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0333351 (* 0.5 = 0.0166676 loss)
+I0915 23:07:40.559648 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:07:40.559674 15477 sgd_solver.cpp:112] Iteration 14500, lr = 0.001
+I0915 23:07:47.477386 15477 solver.cpp:239] Iteration 15000 (72.2815 iter/s, 6.9174s/500 iters), loss = 0.20507
+I0915 23:07:47.477509 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.205069 (* 1 = 0.205069 loss)
+I0915 23:07:47.477530 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:47.477545 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:07:47.477557 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:07:47.477572 15477 sgd_solver.cpp:112] Iteration 15000, lr = 0.001
+I0915 23:07:59.147305 15477 solver.cpp:239] Iteration 15500 (42.8526 iter/s, 11.6679s/500 iters), loss = 0.711886
+I0915 23:07:59.147455 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:07:59.147464 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:07:59.147469 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0374747 (* 0.5 = 0.0187373 loss)
+I0915 23:07:59.147473 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:07:59.147477 15477 sgd_solver.cpp:112] Iteration 15500, lr = 0.001
+I0915 23:08:01.089020 15477 solver.cpp:239] Iteration 16000 (257.523 iter/s, 1.94157s/500 iters), loss = 0.709456
+I0915 23:08:01.089071 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:08:01.089078 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:01.089083 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0326144 (* 0.5 = 0.0163072 loss)
+I0915 23:08:01.089087 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:08:01.089092 15477 sgd_solver.cpp:112] Iteration 16000, lr = 0.001
+I0915 23:08:07.948350 15477 solver.cpp:239] Iteration 16500 (72.9153 iter/s, 6.85727s/500 iters), loss = 0.065374
+I0915 23:08:07.948460 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0653728 (* 1 = 0.0653728 loss)
+I0915 23:08:07.948485 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:07.948503 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:08:07.948516 15477 solver.cpp:258]     Train net output #3: cls_Acc = 1
+I0915 23:08:07.948531 15477 sgd_solver.cpp:112] Iteration 16500, lr = 0.001
+I0915 23:08:09.899192 15477 solver.cpp:239] Iteration 17000 (256.311 iter/s, 1.95075s/500 iters), loss = 0.0979269
+I0915 23:08:09.899245 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0979257 (* 1 = 0.0979257 loss)
+I0915 23:08:09.899250 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:09.899255 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:08:09.899260 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:08:09.899264 15477 sgd_solver.cpp:112] Iteration 17000, lr = 0.001
+I0915 23:08:16.745965 15477 solver.cpp:239] Iteration 17500 (73.0323 iter/s, 6.84629s/500 iters), loss = 0.125581
+I0915 23:08:16.746315 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.125579 (* 1 = 0.125579 loss)
+I0915 23:08:16.746325 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:16.746330 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:08:16.746333 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:08:16.746337 15477 sgd_solver.cpp:112] Iteration 17500, lr = 0.001
+I0915 23:08:28.511180 15477 solver.cpp:239] Iteration 18000 (42.5063 iter/s, 11.763s/500 iters), loss = 0.712054
+I0915 23:08:28.511287 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:08:28.511309 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:28.511325 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0378108 (* 0.5 = 0.0189054 loss)
+I0915 23:08:28.511339 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:08:28.511492 15477 sgd_solver.cpp:112] Iteration 18000, lr = 0.001
+I0915 23:08:30.449914 15477 solver.cpp:239] Iteration 18500 (257.912 iter/s, 1.93865s/500 iters), loss = 0.712291
+I0915 23:08:30.449965 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:08:30.449972 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:30.449976 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0382864 (* 0.5 = 0.0191432 loss)
+I0915 23:08:30.449980 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:08:30.449985 15477 sgd_solver.cpp:112] Iteration 18500, lr = 0.001
+I0915 23:08:37.246219 15477 solver.cpp:239] Iteration 19000 (73.5927 iter/s, 6.79415s/500 iters), loss = 0.705987
+I0915 23:08:37.246326 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:08:37.246349 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:37.246366 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0256797 (* 0.5 = 0.0128399 loss)
+I0915 23:08:37.246378 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:08:37.246392 15477 sgd_solver.cpp:112] Iteration 19000, lr = 0.001
+I0915 23:08:39.199944 15477 solver.cpp:239] Iteration 19500 (255.933 iter/s, 1.95364s/500 iters), loss = 0.133849
+I0915 23:08:39.199995 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.133848 (* 1 = 0.133848 loss)
+I0915 23:08:39.200002 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:39.200006 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:08:39.200011 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:08:39.200014 15477 sgd_solver.cpp:112] Iteration 19500, lr = 0.001
+I0915 23:08:46.096103 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_20000.caffemodel
+I0915 23:08:46.101244 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_20000.solverstate
+I0915 23:08:46.108018 15477 solver.cpp:239] Iteration 20000 (72.3789 iter/s, 6.90809s/500 iters), loss = 0.0718708
+I0915 23:08:46.108058 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0718695 (* 1 = 0.0718695 loss)
+I0915 23:08:46.108064 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:46.108069 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:08:46.108073 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:08:46.108078 15477 sgd_solver.cpp:112] Iteration 20000, lr = 0.001
+I0915 23:08:57.766265 15477 solver.cpp:239] Iteration 20500 (42.8959 iter/s, 11.6561s/500 iters), loss = 0.130198
+I0915 23:08:57.766680 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.130197 (* 1 = 0.130197 loss)
+I0915 23:08:57.766706 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:57.766711 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:08:57.766716 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:08:57.766721 15477 sgd_solver.cpp:112] Iteration 20500, lr = 0.001
+I0915 23:08:59.708683 15477 solver.cpp:239] Iteration 21000 (257.463 iter/s, 1.94203s/500 iters), loss = 0.706599
+I0915 23:08:59.708735 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:08:59.708742 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:08:59.708747 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0269013 (* 0.5 = 0.0134506 loss)
+I0915 23:08:59.708751 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:08:59.708755 15477 sgd_solver.cpp:112] Iteration 21000, lr = 0.001
+I0915 23:09:06.486208 15477 solver.cpp:239] Iteration 21500 (73.7953 iter/s, 6.7755s/500 iters), loss = 0.715983
+I0915 23:09:06.486281 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:09:06.486301 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:06.486306 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0456703 (* 0.5 = 0.0228351 loss)
+I0915 23:09:06.486310 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:09:06.486315 15477 sgd_solver.cpp:112] Iteration 21500, lr = 0.001
+I0915 23:09:08.427376 15477 solver.cpp:239] Iteration 22000 (257.585 iter/s, 1.94111s/500 iters), loss = 0.707563
+I0915 23:09:08.427428 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:09:08.427433 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:08.427438 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0288306 (* 0.5 = 0.0144153 loss)
+I0915 23:09:08.427441 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:09:08.427446 15477 sgd_solver.cpp:112] Iteration 22000, lr = 0.001
+I0915 23:09:20.208956 15477 solver.cpp:239] Iteration 22500 (42.4407 iter/s, 11.7812s/500 iters), loss = 0.168128
+I0915 23:09:20.209126 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.168127 (* 1 = 0.168127 loss)
+I0915 23:09:20.209134 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:20.209139 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:09:20.209143 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:09:20.209147 15477 sgd_solver.cpp:112] Iteration 22500, lr = 0.001
+I0915 23:09:26.978951 15477 solver.cpp:239] Iteration 23000 (73.8619 iter/s, 6.76939s/500 iters), loss = 0.708799
+I0915 23:09:26.979007 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:09:26.979012 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:26.979018 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0313019 (* 0.5 = 0.0156509 loss)
+I0915 23:09:26.979022 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:09:26.979027 15477 sgd_solver.cpp:112] Iteration 23000, lr = 0.001
+I0915 23:09:28.926517 15477 solver.cpp:239] Iteration 23500 (256.737 iter/s, 1.94752s/500 iters), loss = 0.151195
+I0915 23:09:28.928571 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.151194 (* 1 = 0.151194 loss)
+I0915 23:09:28.928620 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:28.928625 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:09:28.928630 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:09:28.928635 15477 sgd_solver.cpp:112] Iteration 23500, lr = 0.001
+I0915 23:09:35.735932 15477 solver.cpp:239] Iteration 24000 (73.472 iter/s, 6.80531s/500 iters), loss = 0.707467
+I0915 23:09:35.735987 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:09:35.735994 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:35.736001 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0286376 (* 0.5 = 0.0143188 loss)
+I0915 23:09:35.736004 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:09:35.736009 15477 sgd_solver.cpp:112] Iteration 24000, lr = 0.001
+I0915 23:09:37.681937 15477 solver.cpp:239] Iteration 24500 (256.942 iter/s, 1.94596s/500 iters), loss = 0.709513
+I0915 23:09:37.681990 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:09:37.681998 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:37.682003 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0327291 (* 0.5 = 0.0163645 loss)
+I0915 23:09:37.682008 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:09:37.682013 15477 sgd_solver.cpp:112] Iteration 24500, lr = 0.001
+I0915 23:09:49.396199 15477 solver.cpp:239] Iteration 25000 (42.6848 iter/s, 11.7138s/500 iters), loss = 0.705177
+I0915 23:09:49.396294 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:09:49.396314 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:49.396330 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0240562 (* 0.5 = 0.0120281 loss)
+I0915 23:09:49.396343 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:09:49.396358 15477 sgd_solver.cpp:112] Iteration 25000, lr = 0.001
+I0915 23:09:56.264359 15477 solver.cpp:239] Iteration 25500 (72.8215 iter/s, 6.8661s/500 iters), loss = 0.241742
+I0915 23:09:56.264468 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.241739 (* 1 = 0.241739 loss)
+I0915 23:09:56.264489 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:56.264505 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:09:56.264518 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.890625
+I0915 23:09:56.264533 15477 sgd_solver.cpp:112] Iteration 25500, lr = 0.001
+I0915 23:09:58.208765 15477 solver.cpp:239] Iteration 26000 (257.16 iter/s, 1.94432s/500 iters), loss = 0.709597
+I0915 23:09:58.208817 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:09:58.208824 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:09:58.208829 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0328953 (* 0.5 = 0.0164477 loss)
+I0915 23:09:58.208833 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:09:58.208838 15477 sgd_solver.cpp:112] Iteration 26000, lr = 0.001
+I0915 23:10:05.107367 15477 solver.cpp:239] Iteration 26500 (72.4996 iter/s, 6.89659s/500 iters), loss = 0.709309
+I0915 23:10:05.107704 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:10:05.107729 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:05.107746 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0323193 (* 0.5 = 0.0161597 loss)
+I0915 23:10:05.107760 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:10:05.107774 15477 sgd_solver.cpp:112] Iteration 26500, lr = 0.001
+I0915 23:10:07.045163 15477 solver.cpp:239] Iteration 27000 (258.067 iter/s, 1.93748s/500 iters), loss = 0.0890833
+I0915 23:10:07.045217 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0890818 (* 1 = 0.0890818 loss)
+I0915 23:10:07.045224 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:07.045229 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:07.045233 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:10:07.045238 15477 sgd_solver.cpp:112] Iteration 27000, lr = 0.001
+I0915 23:10:18.711390 15477 solver.cpp:239] Iteration 27500 (42.8603 iter/s, 11.6658s/500 iters), loss = 0.175083
+I0915 23:10:18.711488 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.175082 (* 1 = 0.175082 loss)
+I0915 23:10:18.711509 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:18.711524 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:18.711536 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:10:18.711553 15477 sgd_solver.cpp:112] Iteration 27500, lr = 0.001
+I0915 23:10:25.516556 15477 solver.cpp:239] Iteration 28000 (73.4951 iter/s, 6.80318s/500 iters), loss = 0.709607
+I0915 23:10:25.516608 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:10:25.516614 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:25.516619 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.032917 (* 0.5 = 0.0164585 loss)
+I0915 23:10:25.516623 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:10:25.516635 15477 sgd_solver.cpp:112] Iteration 28000, lr = 0.001
+I0915 23:10:27.467422 15477 solver.cpp:239] Iteration 28500 (256.302 iter/s, 1.95083s/500 iters), loss = 0.0661137
+I0915 23:10:27.467465 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0661125 (* 1 = 0.0661125 loss)
+I0915 23:10:27.467470 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:27.467475 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:27.467478 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:10:27.467483 15477 sgd_solver.cpp:112] Iteration 28500, lr = 0.001
+I0915 23:10:34.315102 15477 solver.cpp:239] Iteration 29000 (73.038 iter/s, 6.84575s/500 iters), loss = 0.164018
+I0915 23:10:34.315152 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.164018 (* 1 = 0.164018 loss)
+I0915 23:10:34.315160 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:34.315165 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:34.315168 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:10:34.315174 15477 sgd_solver.cpp:112] Iteration 29000, lr = 0.001
+I0915 23:10:36.254664 15477 solver.cpp:239] Iteration 29500 (257.795 iter/s, 1.93952s/500 iters), loss = 0.0475227
+I0915 23:10:36.254840 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0475216 (* 1 = 0.0475216 loss)
+I0915 23:10:36.254848 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:36.254853 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:36.254858 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:10:36.254863 15477 sgd_solver.cpp:112] Iteration 29500, lr = 0.001
+I0915 23:10:47.949319 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_30000.caffemodel
+I0915 23:10:47.953667 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_30000.solverstate
+I0915 23:10:47.960453 15477 solver.cpp:239] Iteration 30000 (42.7141 iter/s, 11.7057s/500 iters), loss = 0.114904
+I0915 23:10:47.960489 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.114903 (* 1 = 0.114903 loss)
+I0915 23:10:47.960495 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:47.960500 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:47.960503 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:10:47.960904 15477 sgd_solver.cpp:112] Iteration 30000, lr = 0.0008
+I0915 23:10:54.737905 15477 solver.cpp:239] Iteration 30500 (73.7784 iter/s, 6.77706s/500 iters), loss = 0.151519
+I0915 23:10:54.738039 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.151518 (* 1 = 0.151518 loss)
+I0915 23:10:54.738046 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:54.738051 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:54.738054 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:10:54.738059 15477 sgd_solver.cpp:112] Iteration 30500, lr = 0.0008
+I0915 23:10:56.677983 15477 solver.cpp:239] Iteration 31000 (257.738 iter/s, 1.93996s/500 iters), loss = 0.0849741
+I0915 23:10:56.678027 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0849724 (* 1 = 0.0849724 loss)
+I0915 23:10:56.678033 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:10:56.678038 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:10:56.678041 15477 solver.cpp:258]     Train net output #3: cls_Acc = 1
+I0915 23:10:56.678046 15477 sgd_solver.cpp:112] Iteration 31000, lr = 0.0008
+I0915 23:11:03.588001 15477 solver.cpp:239] Iteration 31500 (72.3789 iter/s, 6.90809s/500 iters), loss = 0.0941518
+I0915 23:11:03.588057 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0941497 (* 1 = 0.0941497 loss)
+I0915 23:11:03.588063 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:03.588066 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:11:03.588069 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:11:03.588074 15477 sgd_solver.cpp:112] Iteration 31500, lr = 0.0008
+I0915 23:11:05.532451 15477 solver.cpp:239] Iteration 32000 (257.148 iter/s, 1.94441s/500 iters), loss = 0.706676
+I0915 23:11:05.532493 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:11:05.532500 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:05.532503 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0270528 (* 0.5 = 0.0135264 loss)
+I0915 23:11:05.532507 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:11:05.532511 15477 sgd_solver.cpp:112] Iteration 32000, lr = 0.0008
+I0915 23:11:12.299515 15477 solver.cpp:239] Iteration 32500 (73.8929 iter/s, 6.76655s/500 iters), loss = 0.186282
+I0915 23:11:12.299778 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.18628 (* 1 = 0.18628 loss)
+I0915 23:11:12.299785 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:12.299790 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:11:12.299793 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:11:12.299798 15477 sgd_solver.cpp:112] Iteration 32500, lr = 0.0008
+I0915 23:11:23.979291 15477 solver.cpp:239] Iteration 33000 (42.8172 iter/s, 11.6776s/500 iters), loss = 0.712034
+I0915 23:11:23.979530 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:11:23.979554 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:23.979571 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0377684 (* 0.5 = 0.0188842 loss)
+I0915 23:11:23.979583 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:11:23.979598 15477 sgd_solver.cpp:112] Iteration 33000, lr = 0.0008
+I0915 23:11:25.926487 15477 solver.cpp:239] Iteration 33500 (256.808 iter/s, 1.94698s/500 iters), loss = 0.147715
+I0915 23:11:25.926532 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.147713 (* 1 = 0.147713 loss)
+I0915 23:11:25.926537 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:25.926542 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:11:25.926545 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:11:25.926550 15477 sgd_solver.cpp:112] Iteration 33500, lr = 0.0008
+I0915 23:11:32.736397 15477 solver.cpp:239] Iteration 34000 (73.4444 iter/s, 6.80788s/500 iters), loss = 0.711425
+I0915 23:11:32.736500 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:11:32.736522 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:32.736538 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0365502 (* 0.5 = 0.0182751 loss)
+I0915 23:11:32.736552 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:11:32.736564 15477 sgd_solver.cpp:112] Iteration 34000, lr = 0.0008
+I0915 23:11:34.685338 15477 solver.cpp:239] Iteration 34500 (256.56 iter/s, 1.94886s/500 iters), loss = 0.71129
+I0915 23:11:34.685379 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:11:34.685386 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:34.685390 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0362803 (* 0.5 = 0.0181401 loss)
+I0915 23:11:34.685395 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:11:34.685398 15477 sgd_solver.cpp:112] Iteration 34500, lr = 0.0008
+I0915 23:11:46.379725 15477 solver.cpp:239] Iteration 35000 (42.7571 iter/s, 11.694s/500 iters), loss = 0.0507929
+I0915 23:11:46.380095 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0507905 (* 1 = 0.0507905 loss)
+I0915 23:11:46.380116 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:46.380131 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:11:46.380142 15477 solver.cpp:258]     Train net output #3: cls_Acc = 1
+I0915 23:11:46.380156 15477 sgd_solver.cpp:112] Iteration 35000, lr = 0.0008
+I0915 23:11:53.185669 15477 solver.cpp:239] Iteration 35500 (73.4903 iter/s, 6.80362s/500 iters), loss = 0.0911509
+I0915 23:11:53.185768 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0911482 (* 1 = 0.0911482 loss)
+I0915 23:11:53.185789 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:53.185803 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:11:53.185814 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:11:53.185827 15477 sgd_solver.cpp:112] Iteration 35500, lr = 0.0008
+I0915 23:11:55.122764 15477 solver.cpp:239] Iteration 36000 (258.129 iter/s, 1.93702s/500 iters), loss = 0.198677
+I0915 23:11:55.122807 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.198673 (* 1 = 0.198673 loss)
+I0915 23:11:55.122812 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:11:55.122817 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:11:55.122820 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:11:55.122824 15477 sgd_solver.cpp:112] Iteration 36000, lr = 0.0008
+I0915 23:12:01.900694 15477 solver.cpp:239] Iteration 36500 (73.7916 iter/s, 6.77584s/500 iters), loss = 0.708628
+I0915 23:12:01.900799 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:12:01.900822 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:01.900838 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0309542 (* 0.5 = 0.0154771 loss)
+I0915 23:12:01.900851 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:12:01.900866 15477 sgd_solver.cpp:112] Iteration 36500, lr = 0.0008
+I0915 23:12:03.847393 15477 solver.cpp:239] Iteration 37000 (256.856 iter/s, 1.94662s/500 iters), loss = 0.106236
+I0915 23:12:03.847437 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.106232 (* 1 = 0.106232 loss)
+I0915 23:12:03.847443 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:03.847448 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:12:03.847452 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:12:03.847456 15477 sgd_solver.cpp:112] Iteration 37000, lr = 0.0008
+I0915 23:12:15.649722 15477 solver.cpp:239] Iteration 37500 (42.3662 iter/s, 11.8019s/500 iters), loss = 0.167586
+I0915 23:12:15.649770 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.167582 (* 1 = 0.167582 loss)
+I0915 23:12:15.649776 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:15.649781 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:12:15.649785 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:12:15.649789 15477 sgd_solver.cpp:112] Iteration 37500, lr = 0.0008
+I0915 23:12:22.379958 15477 solver.cpp:239] Iteration 38000 (74.2969 iter/s, 6.72976s/500 iters), loss = 0.709604
+I0915 23:12:22.380105 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:12:22.380111 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:22.380116 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0329046 (* 0.5 = 0.0164523 loss)
+I0915 23:12:22.380120 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:12:22.380131 15477 sgd_solver.cpp:112] Iteration 38000, lr = 0.0008
+I0915 23:12:24.326764 15477 solver.cpp:239] Iteration 38500 (256.849 iter/s, 1.94667s/500 iters), loss = 0.213015
+I0915 23:12:24.326809 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.21301 (* 1 = 0.21301 loss)
+I0915 23:12:24.326815 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:24.326819 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:12:24.326822 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.890625
+I0915 23:12:24.326826 15477 sgd_solver.cpp:112] Iteration 38500, lr = 0.0008
+I0915 23:12:31.206152 15477 solver.cpp:239] Iteration 39000 (72.7017 iter/s, 6.87742s/500 iters), loss = 0.0990692
+I0915 23:12:31.206243 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0990646 (* 1 = 0.0990646 loss)
+I0915 23:12:31.206259 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:31.206274 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:12:31.206284 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:12:31.206297 15477 sgd_solver.cpp:112] Iteration 39000, lr = 0.0008
+I0915 23:12:33.152647 15477 solver.cpp:239] Iteration 39500 (256.881 iter/s, 1.94642s/500 iters), loss = 0.710816
+I0915 23:12:33.152693 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:12:33.152699 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:33.152704 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0353274 (* 0.5 = 0.0176637 loss)
+I0915 23:12:33.152709 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:12:33.152712 15477 sgd_solver.cpp:112] Iteration 39500, lr = 0.0008
+I0915 23:12:44.830466 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_40000.caffemodel
+I0915 23:12:44.835247 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_40000.solverstate
+I0915 23:12:44.843017 15477 solver.cpp:239] Iteration 40000 (42.77 iter/s, 11.6904s/500 iters), loss = 0.712883
+I0915 23:12:44.843060 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:12:44.843070 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:44.843077 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0394626 (* 0.5 = 0.0197313 loss)
+I0915 23:12:44.843083 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:12:44.843091 15477 sgd_solver.cpp:112] Iteration 40000, lr = 0.0008
+I0915 23:12:51.660363 15477 solver.cpp:239] Iteration 40500 (73.3636 iter/s, 6.81537s/500 iters), loss = 0.134902
+I0915 23:12:51.660559 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.134897 (* 1 = 0.134897 loss)
+I0915 23:12:51.660581 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:51.660596 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:12:51.660609 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:12:51.660622 15477 sgd_solver.cpp:112] Iteration 40500, lr = 0.0008
+I0915 23:12:53.603147 15477 solver.cpp:239] Iteration 41000 (257.386 iter/s, 1.94261s/500 iters), loss = 0.710493
+I0915 23:12:53.605202 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:12:53.605226 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:12:53.605242 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0346834 (* 0.5 = 0.0173417 loss)
+I0915 23:12:53.605253 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:12:53.605268 15477 sgd_solver.cpp:112] Iteration 41000, lr = 0.0008
+I0915 23:13:00.420372 15477 solver.cpp:239] Iteration 41500 (73.3881 iter/s, 6.8131s/500 iters), loss = 0.07783
+I0915 23:13:00.420460 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0778255 (* 1 = 0.0778255 loss)
+I0915 23:13:00.420469 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:00.420473 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:00.420477 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:13:00.420481 15477 sgd_solver.cpp:112] Iteration 41500, lr = 0.0008
+I0915 23:13:02.372018 15477 solver.cpp:239] Iteration 42000 (256.204 iter/s, 1.95157s/500 iters), loss = 0.708272
+I0915 23:13:02.372064 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:13:02.372069 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:02.372074 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0302407 (* 0.5 = 0.0151203 loss)
+I0915 23:13:02.372078 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:13:02.372082 15477 sgd_solver.cpp:112] Iteration 42000, lr = 0.0008
+I0915 23:13:14.077239 15477 solver.cpp:239] Iteration 42500 (42.7235 iter/s, 11.7032s/500 iters), loss = 0.711176
+I0915 23:13:14.077332 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:13:14.077349 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:14.077364 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0360485 (* 0.5 = 0.0180242 loss)
+I0915 23:13:14.077376 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:13:14.077389 15477 sgd_solver.cpp:112] Iteration 42500, lr = 0.0008
+I0915 23:13:20.918515 15477 solver.cpp:239] Iteration 43000 (73.1094 iter/s, 6.83906s/500 iters), loss = 0.0604052
+I0915 23:13:20.918614 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0604005 (* 1 = 0.0604005 loss)
+I0915 23:13:20.918635 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:20.918650 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:20.918663 15477 solver.cpp:258]     Train net output #3: cls_Acc = 1
+I0915 23:13:20.918675 15477 sgd_solver.cpp:112] Iteration 43000, lr = 0.0008
+I0915 23:13:22.858462 15477 solver.cpp:239] Iteration 43500 (257.749 iter/s, 1.93987s/500 iters), loss = 0.134591
+I0915 23:13:22.858505 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.134586 (* 1 = 0.134586 loss)
+I0915 23:13:22.858510 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:22.858515 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:22.858518 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:13:22.858522 15477 sgd_solver.cpp:112] Iteration 43500, lr = 0.0008
+I0915 23:13:29.659416 15477 solver.cpp:239] Iteration 44000 (73.5249 iter/s, 6.80042s/500 iters), loss = 0.0815821
+I0915 23:13:29.659886 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0815776 (* 1 = 0.0815776 loss)
+I0915 23:13:29.659907 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:29.659912 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:29.659916 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:13:29.659921 15477 sgd_solver.cpp:112] Iteration 44000, lr = 0.0008
+I0915 23:13:31.607228 15477 solver.cpp:239] Iteration 44500 (256.758 iter/s, 1.94736s/500 iters), loss = 0.124375
+I0915 23:13:31.607271 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.124371 (* 1 = 0.124371 loss)
+I0915 23:13:31.607277 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:31.607282 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:31.607286 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:13:31.607290 15477 sgd_solver.cpp:112] Iteration 44500, lr = 0.0008
+I0915 23:13:43.297770 15477 solver.cpp:239] Iteration 45000 (42.7771 iter/s, 11.6885s/500 iters), loss = 0.709028
+I0915 23:13:43.297861 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:13:43.297879 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:43.297894 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0317521 (* 0.5 = 0.0158761 loss)
+I0915 23:13:43.297905 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:13:43.297919 15477 sgd_solver.cpp:112] Iteration 45000, lr = 0.0008
+I0915 23:13:50.143332 15477 solver.cpp:239] Iteration 45500 (73.0619 iter/s, 6.84351s/500 iters), loss = 0.133624
+I0915 23:13:50.143426 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.133619 (* 1 = 0.133619 loss)
+I0915 23:13:50.143446 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:50.143460 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:50.143472 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:13:50.143486 15477 sgd_solver.cpp:112] Iteration 45500, lr = 0.0008
+I0915 23:13:52.093669 15477 solver.cpp:239] Iteration 46000 (256.376 iter/s, 1.95026s/500 iters), loss = 0.0851498
+I0915 23:13:52.093713 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0851451 (* 1 = 0.0851451 loss)
+I0915 23:13:52.093719 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:52.093724 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:52.093727 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:13:52.093731 15477 sgd_solver.cpp:112] Iteration 46000, lr = 0.0008
+I0915 23:13:58.949872 15477 solver.cpp:239] Iteration 46500 (72.9489 iter/s, 6.85412s/500 iters), loss = 0.141412
+I0915 23:13:58.949925 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.141407 (* 1 = 0.141407 loss)
+I0915 23:13:58.949932 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:13:58.949937 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:13:58.949940 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:13:58.949945 15477 sgd_solver.cpp:112] Iteration 46500, lr = 0.0008
+I0915 23:14:00.892935 15477 solver.cpp:239] Iteration 47000 (257.331 iter/s, 1.94302s/500 iters), loss = 0.707547
+I0915 23:14:00.895037 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:00.895066 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:00.895081 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0287893 (* 0.5 = 0.0143946 loss)
+I0915 23:14:00.895095 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:00.895109 15477 sgd_solver.cpp:112] Iteration 47000, lr = 0.0008
+I0915 23:14:12.563601 15477 solver.cpp:239] Iteration 47500 (42.8572 iter/s, 11.6667s/500 iters), loss = 0.71296
+I0915 23:14:12.563700 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:12.563722 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:12.563740 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0396166 (* 0.5 = 0.0198083 loss)
+I0915 23:14:12.563752 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:12.563766 15477 sgd_solver.cpp:112] Iteration 47500, lr = 0.0008
+I0915 23:14:19.393796 15477 solver.cpp:239] Iteration 48000 (73.2261 iter/s, 6.82817s/500 iters), loss = 0.712385
+I0915 23:14:19.394027 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:19.394052 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:19.394068 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0384667 (* 0.5 = 0.0192334 loss)
+I0915 23:14:19.394093 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:19.394106 15477 sgd_solver.cpp:112] Iteration 48000, lr = 0.0008
+I0915 23:14:21.346112 15477 solver.cpp:239] Iteration 48500 (256.133 iter/s, 1.95211s/500 iters), loss = 0.709161
+I0915 23:14:21.346156 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:21.346163 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:21.346168 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0320194 (* 0.5 = 0.0160097 loss)
+I0915 23:14:21.346170 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:21.346174 15477 sgd_solver.cpp:112] Iteration 48500, lr = 0.0008
+I0915 23:14:28.191854 15477 solver.cpp:239] Iteration 49000 (73.0594 iter/s, 6.84375s/500 iters), loss = 0.0751844
+I0915 23:14:28.192061 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0751799 (* 1 = 0.0751799 loss)
+I0915 23:14:28.192085 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:28.192100 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:14:28.192111 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:14:28.192126 15477 sgd_solver.cpp:112] Iteration 49000, lr = 0.0008
+I0915 23:14:30.138978 15477 solver.cpp:239] Iteration 49500 (256.814 iter/s, 1.94694s/500 iters), loss = 0.707988
+I0915 23:14:30.139021 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:30.139029 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:30.139032 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0296723 (* 0.5 = 0.0148362 loss)
+I0915 23:14:30.139036 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:30.139040 15477 sgd_solver.cpp:112] Iteration 49500, lr = 0.0008
+I0915 23:14:41.877944 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_50000.caffemodel
+I0915 23:14:41.882228 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_50000.solverstate
+I0915 23:14:41.888115 15477 solver.cpp:239] Iteration 50000 (42.556 iter/s, 11.7492s/500 iters), loss = 0.713002
+I0915 23:14:41.888154 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:41.888160 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:41.888165 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0397002 (* 0.5 = 0.0198501 loss)
+I0915 23:14:41.888170 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:41.888175 15477 sgd_solver.cpp:112] Iteration 50000, lr = 0.0008
+I0915 23:14:48.598625 15477 solver.cpp:239] Iteration 50500 (74.5328 iter/s, 6.70846s/500 iters), loss = 0.709929
+I0915 23:14:48.598853 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:48.598878 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:48.598894 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0335551 (* 0.5 = 0.0167775 loss)
+I0915 23:14:48.598906 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:48.598920 15477 sgd_solver.cpp:112] Iteration 50500, lr = 0.0008
+I0915 23:14:50.544260 15477 solver.cpp:239] Iteration 51000 (257.013 iter/s, 1.94543s/500 iters), loss = 0.707963
+I0915 23:14:50.544304 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:50.544311 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:50.544315 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0296222 (* 0.5 = 0.0148111 loss)
+I0915 23:14:50.544319 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:50.544323 15477 sgd_solver.cpp:112] Iteration 51000, lr = 0.0008
+I0915 23:14:57.434216 15477 solver.cpp:239] Iteration 51500 (72.5905 iter/s, 6.88795s/500 iters), loss = 0.0284276
+I0915 23:14:57.434339 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0284231 (* 1 = 0.0284231 loss)
+I0915 23:14:57.434360 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:57.434373 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:14:57.434386 15477 solver.cpp:258]     Train net output #3: cls_Acc = 1
+I0915 23:14:57.434397 15477 sgd_solver.cpp:112] Iteration 51500, lr = 0.0008
+I0915 23:14:59.384704 15477 solver.cpp:239] Iteration 52000 (256.359 iter/s, 1.95039s/500 iters), loss = 0.708587
+I0915 23:14:59.384750 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:14:59.384755 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:14:59.384760 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0308697 (* 0.5 = 0.0154349 loss)
+I0915 23:14:59.384763 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:14:59.384768 15477 sgd_solver.cpp:112] Iteration 52000, lr = 0.0008
+I0915 23:15:11.059545 15477 solver.cpp:239] Iteration 52500 (42.8289 iter/s, 11.6744s/500 iters), loss = 0.709736
+I0915 23:15:11.059751 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:15:11.059772 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:11.059788 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.033169 (* 0.5 = 0.0165845 loss)
+I0915 23:15:11.059800 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:15:11.059814 15477 sgd_solver.cpp:112] Iteration 52500, lr = 0.0008
+I0915 23:15:17.865896 15477 solver.cpp:239] Iteration 53000 (73.4841 iter/s, 6.8042s/500 iters), loss = 0.711058
+I0915 23:15:17.866291 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:15:17.866315 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:17.866331 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0358132 (* 0.5 = 0.0179066 loss)
+I0915 23:15:17.866343 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:15:17.866358 15477 sgd_solver.cpp:112] Iteration 53000, lr = 0.0008
+I0915 23:15:19.813422 15477 solver.cpp:239] Iteration 53500 (256.785 iter/s, 1.94715s/500 iters), loss = 0.706436
+I0915 23:15:19.813467 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:15:19.813472 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:19.813477 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0265701 (* 0.5 = 0.013285 loss)
+I0915 23:15:19.813482 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:15:19.813485 15477 sgd_solver.cpp:112] Iteration 53500, lr = 0.0008
+I0915 23:15:26.627889 15477 solver.cpp:239] Iteration 54000 (73.3964 iter/s, 6.81233s/500 iters), loss = 0.710773
+I0915 23:15:26.627974 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:15:26.627993 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:26.628010 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0352435 (* 0.5 = 0.0176218 loss)
+I0915 23:15:26.628021 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:15:26.628036 15477 sgd_solver.cpp:112] Iteration 54000, lr = 0.0008
+I0915 23:15:28.583833 15477 solver.cpp:239] Iteration 54500 (255.64 iter/s, 1.95588s/500 iters), loss = 0.061156
+I0915 23:15:28.583875 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0611518 (* 1 = 0.0611518 loss)
+I0915 23:15:28.583881 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:28.583886 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:15:28.583889 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:15:28.583906 15477 sgd_solver.cpp:112] Iteration 54500, lr = 0.0008
+I0915 23:15:40.262382 15477 solver.cpp:239] Iteration 55000 (42.8151 iter/s, 11.6781s/500 iters), loss = 0.0994746
+I0915 23:15:40.262432 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0994699 (* 1 = 0.0994699 loss)
+I0915 23:15:40.262439 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:40.262442 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:15:40.262445 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:15:40.262450 15477 sgd_solver.cpp:112] Iteration 55000, lr = 0.0008
+I0915 23:15:46.993988 15477 solver.cpp:239] Iteration 55500 (74.2825 iter/s, 6.73106s/500 iters), loss = 0.709315
+I0915 23:15:46.994072 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:15:46.994092 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:46.994108 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0323275 (* 0.5 = 0.0161637 loss)
+I0915 23:15:46.994120 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:15:46.994134 15477 sgd_solver.cpp:112] Iteration 55500, lr = 0.0008
+I0915 23:15:48.938535 15477 solver.cpp:239] Iteration 56000 (257.138 iter/s, 1.94448s/500 iters), loss = 0.16539
+I0915 23:15:48.938750 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.165385 (* 1 = 0.165385 loss)
+I0915 23:15:48.938760 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:48.938764 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:15:48.938767 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:15:48.938772 15477 sgd_solver.cpp:112] Iteration 56000, lr = 0.0008
+I0915 23:15:55.824990 15477 solver.cpp:239] Iteration 56500 (72.6299 iter/s, 6.88421s/500 iters), loss = 0.0735086
+I0915 23:15:55.825059 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0735036 (* 1 = 0.0735036 loss)
+I0915 23:15:55.825065 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:55.825070 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:15:55.825074 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:15:55.825078 15477 sgd_solver.cpp:112] Iteration 56500, lr = 0.0008
+I0915 23:15:57.779409 15477 solver.cpp:239] Iteration 57000 (255.838 iter/s, 1.95437s/500 iters), loss = 0.712598
+I0915 23:15:57.779459 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:15:57.779465 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:15:57.779470 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0388931 (* 0.5 = 0.0194466 loss)
+I0915 23:15:57.779474 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:15:57.779479 15477 sgd_solver.cpp:112] Iteration 57000, lr = 0.0008
+I0915 23:16:09.446143 15477 solver.cpp:239] Iteration 57500 (42.8584 iter/s, 11.6663s/500 iters), loss = 0.710169
+I0915 23:16:09.446195 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:16:09.446202 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:09.446207 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0340342 (* 0.5 = 0.0170171 loss)
+I0915 23:16:09.446210 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:16:09.446215 15477 sgd_solver.cpp:112] Iteration 57500, lr = 0.0008
+I0915 23:16:16.246608 15477 solver.cpp:239] Iteration 58000 (73.5297 iter/s, 6.79997s/500 iters), loss = 0.0855334
+I0915 23:16:16.246692 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0855288 (* 1 = 0.0855288 loss)
+I0915 23:16:16.246711 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:16.246726 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:16:16.246752 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:16:16.246764 15477 sgd_solver.cpp:112] Iteration 58000, lr = 0.0008
+I0915 23:16:18.182637 15477 solver.cpp:239] Iteration 58500 (258.27 iter/s, 1.93596s/500 iters), loss = 0.263125
+I0915 23:16:18.182678 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.26312 (* 1 = 0.26312 loss)
+I0915 23:16:18.182683 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:18.182688 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:16:18.182691 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.90625
+I0915 23:16:18.182695 15477 sgd_solver.cpp:112] Iteration 58500, lr = 0.0008
+I0915 23:16:25.004846 15477 solver.cpp:239] Iteration 59000 (73.3114 iter/s, 6.82022s/500 iters), loss = 0.120977
+I0915 23:16:25.005324 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.120972 (* 1 = 0.120972 loss)
+I0915 23:16:25.005340 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:25.005350 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:16:25.005357 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:16:25.005367 15477 sgd_solver.cpp:112] Iteration 59000, lr = 0.0008
+I0915 23:16:26.952788 15477 solver.cpp:239] Iteration 59500 (256.742 iter/s, 1.94748s/500 iters), loss = 0.708885
+I0915 23:16:26.952831 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:16:26.952837 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:26.952842 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0314662 (* 0.5 = 0.0157331 loss)
+I0915 23:16:26.952847 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:16:26.952850 15477 sgd_solver.cpp:112] Iteration 59500, lr = 0.0008
+I0915 23:16:38.690820 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_60000.caffemodel
+I0915 23:16:38.693840 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_60000.solverstate
+I0915 23:16:38.700728 15477 solver.cpp:239] Iteration 60000 (42.5604 iter/s, 11.748s/500 iters), loss = 0.21659
+I0915 23:16:38.700767 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.216585 (* 1 = 0.216585 loss)
+I0915 23:16:38.700773 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:38.700778 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:16:38.700783 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:16:38.700788 15477 sgd_solver.cpp:112] Iteration 60000, lr = 0.00064
+I0915 23:16:45.460913 15477 solver.cpp:239] Iteration 60500 (73.9843 iter/s, 6.75819s/500 iters), loss = 0.0547298
+I0915 23:16:45.461056 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0547252 (* 1 = 0.0547252 loss)
+I0915 23:16:45.461064 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:45.461069 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:16:45.461073 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:16:45.461077 15477 sgd_solver.cpp:112] Iteration 60500, lr = 0.00064
+I0915 23:16:47.411800 15477 solver.cpp:239] Iteration 61000 (256.311 iter/s, 1.95076s/500 iters), loss = 0.225173
+I0915 23:16:47.411846 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.225168 (* 1 = 0.225168 loss)
+I0915 23:16:47.411852 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:47.411857 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:16:47.411861 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.890625
+I0915 23:16:47.411865 15477 sgd_solver.cpp:112] Iteration 61000, lr = 0.00064
+I0915 23:16:54.209450 15477 solver.cpp:239] Iteration 61500 (73.5751 iter/s, 6.79578s/500 iters), loss = 0.0466335
+I0915 23:16:54.209556 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0466284 (* 1 = 0.0466284 loss)
+I0915 23:16:54.209579 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:54.209594 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:16:54.209605 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:16:54.209619 15477 sgd_solver.cpp:112] Iteration 61500, lr = 0.00064
+I0915 23:16:56.161666 15477 solver.cpp:239] Iteration 62000 (256.118 iter/s, 1.95222s/500 iters), loss = 0.709733
+I0915 23:16:56.163748 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:16:56.163758 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:16:56.163763 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0331628 (* 0.5 = 0.0165814 loss)
+I0915 23:16:56.163767 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:16:56.163771 15477 sgd_solver.cpp:112] Iteration 62000, lr = 0.00064
+I0915 23:17:07.918939 15477 solver.cpp:239] Iteration 62500 (42.5394 iter/s, 11.7538s/500 iters), loss = 0.10966
+I0915 23:17:07.919047 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.109655 (* 1 = 0.109655 loss)
+I0915 23:17:07.919070 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:07.919085 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:17:07.919098 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:17:07.919112 15477 sgd_solver.cpp:112] Iteration 62500, lr = 0.00064
+I0915 23:17:14.714277 15477 solver.cpp:239] Iteration 63000 (73.6007 iter/s, 6.79341s/500 iters), loss = 0.70592
+I0915 23:17:14.714375 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:17:14.714398 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:14.714416 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0255368 (* 0.5 = 0.0127684 loss)
+I0915 23:17:14.714428 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:17:14.714442 15477 sgd_solver.cpp:112] Iteration 63000, lr = 0.00064
+I0915 23:17:16.662971 15477 solver.cpp:239] Iteration 63500 (256.581 iter/s, 1.9487s/500 iters), loss = 0.709154
+I0915 23:17:16.663017 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:17:16.663022 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:16.663028 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0320039 (* 0.5 = 0.0160019 loss)
+I0915 23:17:16.663031 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:17:16.663035 15477 sgd_solver.cpp:112] Iteration 63500, lr = 0.00064
+I0915 23:17:23.528923 15477 solver.cpp:239] Iteration 64000 (72.8415 iter/s, 6.86422s/500 iters), loss = 0.130482
+I0915 23:17:23.529042 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.130478 (* 1 = 0.130478 loss)
+I0915 23:17:23.529062 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:23.529078 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:17:23.529089 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:17:23.529103 15477 sgd_solver.cpp:112] Iteration 64000, lr = 0.00064
+I0915 23:17:25.475492 15477 solver.cpp:239] Iteration 64500 (256.86 iter/s, 1.94659s/500 iters), loss = 0.0862014
+I0915 23:17:25.475538 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0861975 (* 1 = 0.0861975 loss)
+I0915 23:17:25.475543 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:25.475548 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:17:25.475553 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:17:25.475569 15477 sgd_solver.cpp:112] Iteration 64500, lr = 0.00064
+I0915 23:17:37.144353 15477 solver.cpp:239] Iteration 65000 (42.8546 iter/s, 11.6673s/500 iters), loss = 0.711566
+I0915 23:17:37.144724 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:17:37.144747 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:37.144762 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0368294 (* 0.5 = 0.0184147 loss)
+I0915 23:17:37.144774 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:17:37.144788 15477 sgd_solver.cpp:112] Iteration 65000, lr = 0.00064
+I0915 23:17:44.001368 15477 solver.cpp:239] Iteration 65500 (72.9395 iter/s, 6.85499s/500 iters), loss = 0.707774
+I0915 23:17:44.001459 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:17:44.001479 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:44.001495 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0292452 (* 0.5 = 0.0146226 loss)
+I0915 23:17:44.001508 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:17:44.001523 15477 sgd_solver.cpp:112] Iteration 65500, lr = 0.00064
+I0915 23:17:45.952579 15477 solver.cpp:239] Iteration 66000 (256.25 iter/s, 1.95122s/500 iters), loss = 0.174883
+I0915 23:17:45.952623 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.174879 (* 1 = 0.174879 loss)
+I0915 23:17:45.952630 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:45.952634 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:17:45.952637 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:17:45.952642 15477 sgd_solver.cpp:112] Iteration 66000, lr = 0.00064
+I0915 23:17:52.781059 15477 solver.cpp:239] Iteration 66500 (73.2416 iter/s, 6.82672s/500 iters), loss = 0.0661893
+I0915 23:17:52.781114 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0661858 (* 1 = 0.0661858 loss)
+I0915 23:17:52.781124 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:52.781129 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:17:52.781133 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:17:52.781138 15477 sgd_solver.cpp:112] Iteration 66500, lr = 0.00064
+I0915 23:17:54.725766 15477 solver.cpp:239] Iteration 67000 (257.103 iter/s, 1.94475s/500 iters), loss = 0.0807174
+I0915 23:17:54.725816 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0807138 (* 1 = 0.0807138 loss)
+I0915 23:17:54.725822 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:17:54.725826 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:17:54.725831 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:17:54.725836 15477 sgd_solver.cpp:112] Iteration 67000, lr = 0.00064
+I0915 23:18:06.446425 15477 solver.cpp:239] Iteration 67500 (42.6654 iter/s, 11.7191s/500 iters), loss = 0.111256
+I0915 23:18:06.446532 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.111253 (* 1 = 0.111253 loss)
+I0915 23:18:06.446553 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:06.446568 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:18:06.446580 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:18:06.446594 15477 sgd_solver.cpp:112] Iteration 67500, lr = 0.00064
+I0915 23:18:13.241672 15477 solver.cpp:239] Iteration 68000 (73.5998 iter/s, 6.79349s/500 iters), loss = 0.709601
+I0915 23:18:13.242022 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:13.242045 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:13.242077 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0328996 (* 0.5 = 0.0164498 loss)
+I0915 23:18:13.242090 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:13.242102 15477 sgd_solver.cpp:112] Iteration 68000, lr = 0.00064
+I0915 23:18:15.184363 15477 solver.cpp:239] Iteration 68500 (257.408 iter/s, 1.94244s/500 iters), loss = 0.705233
+I0915 23:18:15.184410 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:15.184415 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:15.184420 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0241642 (* 0.5 = 0.0120821 loss)
+I0915 23:18:15.184424 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:15.184428 15477 sgd_solver.cpp:112] Iteration 68500, lr = 0.00064
+I0915 23:18:22.079360 15477 solver.cpp:239] Iteration 69000 (72.5185 iter/s, 6.89479s/500 iters), loss = 0.707161
+I0915 23:18:22.079448 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:22.079468 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:22.079483 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0280191 (* 0.5 = 0.0140095 loss)
+I0915 23:18:22.079496 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:22.079509 15477 sgd_solver.cpp:112] Iteration 69000, lr = 0.00064
+I0915 23:18:24.022363 15477 solver.cpp:239] Iteration 69500 (257.333 iter/s, 1.94301s/500 iters), loss = 0.709065
+I0915 23:18:24.022408 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:24.022413 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:24.022418 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0318283 (* 0.5 = 0.0159142 loss)
+I0915 23:18:24.022423 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:24.022426 15477 sgd_solver.cpp:112] Iteration 69500, lr = 0.00064
+I0915 23:18:35.638371 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_70000.caffemodel
+I0915 23:18:35.641379 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_70000.solverstate
+I0915 23:18:35.648353 15477 solver.cpp:239] Iteration 70000 (43.0051 iter/s, 11.6265s/500 iters), loss = 0.207227
+I0915 23:18:35.648388 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.207223 (* 1 = 0.207223 loss)
+I0915 23:18:35.648394 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:35.648399 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:18:35.648403 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.90625
+I0915 23:18:35.648408 15477 sgd_solver.cpp:112] Iteration 70000, lr = 0.00064
+I0915 23:18:42.450045 15477 solver.cpp:239] Iteration 70500 (73.5297 iter/s, 6.79997s/500 iters), loss = 0.709586
+I0915 23:18:42.450125 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:42.450142 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:42.450153 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0328697 (* 0.5 = 0.0164349 loss)
+I0915 23:18:42.450161 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:42.450171 15477 sgd_solver.cpp:112] Iteration 70500, lr = 0.00064
+I0915 23:18:44.403738 15477 solver.cpp:239] Iteration 71000 (255.924 iter/s, 1.9537s/500 iters), loss = 0.707046
+I0915 23:18:44.403925 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:44.403934 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:44.403939 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.027789 (* 0.5 = 0.0138945 loss)
+I0915 23:18:44.403941 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:44.403949 15477 sgd_solver.cpp:112] Iteration 71000, lr = 0.00064
+I0915 23:18:51.182803 15477 solver.cpp:239] Iteration 71500 (73.7773 iter/s, 6.77715s/500 iters), loss = 0.711816
+I0915 23:18:51.182900 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:51.182924 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:51.182938 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0373306 (* 0.5 = 0.0186653 loss)
+I0915 23:18:51.182950 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:51.182963 15477 sgd_solver.cpp:112] Iteration 71500, lr = 0.00064
+I0915 23:18:53.139147 15477 solver.cpp:239] Iteration 72000 (255.579 iter/s, 1.95634s/500 iters), loss = 0.707509
+I0915 23:18:53.139191 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:18:53.139197 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:18:53.139202 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0287175 (* 0.5 = 0.0143587 loss)
+I0915 23:18:53.139205 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:18:53.139210 15477 sgd_solver.cpp:112] Iteration 72000, lr = 0.00064
+I0915 23:19:04.828280 15477 solver.cpp:239] Iteration 72500 (42.7803 iter/s, 11.6876s/500 iters), loss = 0.709863
+I0915 23:19:04.828331 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:19:04.828344 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:04.828348 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0334267 (* 0.5 = 0.0167133 loss)
+I0915 23:19:04.828352 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:19:04.828357 15477 sgd_solver.cpp:112] Iteration 72500, lr = 0.00064
+I0915 23:19:11.559979 15477 solver.cpp:239] Iteration 73000 (74.2942 iter/s, 6.73s/500 iters), loss = 0.11084
+I0915 23:19:11.560029 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.110838 (* 1 = 0.110838 loss)
+I0915 23:19:11.560034 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:11.560039 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:19:11.560042 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:19:11.560046 15477 sgd_solver.cpp:112] Iteration 73000, lr = 0.00064
+I0915 23:19:13.501099 15477 solver.cpp:239] Iteration 73500 (257.579 iter/s, 1.94115s/500 iters), loss = 0.044161
+I0915 23:19:13.501142 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0441585 (* 1 = 0.0441585 loss)
+I0915 23:19:13.501147 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:13.501152 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:19:13.501155 15477 solver.cpp:258]     Train net output #3: cls_Acc = 1
+I0915 23:19:13.501159 15477 sgd_solver.cpp:112] Iteration 73500, lr = 0.00064
+I0915 23:19:20.423051 15477 solver.cpp:239] Iteration 74000 (72.2529 iter/s, 6.92013s/500 iters), loss = 0.199979
+I0915 23:19:20.423336 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.199977 (* 1 = 0.199977 loss)
+I0915 23:19:20.423360 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:20.423375 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:19:20.423399 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.90625
+I0915 23:19:20.423404 15477 sgd_solver.cpp:112] Iteration 74000, lr = 0.00064
+I0915 23:19:22.371307 15477 solver.cpp:239] Iteration 74500 (256.665 iter/s, 1.94807s/500 iters), loss = 0.0721948
+I0915 23:19:22.371351 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0721925 (* 1 = 0.0721925 loss)
+I0915 23:19:22.371356 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:22.371361 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:19:22.371376 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:19:22.371381 15477 sgd_solver.cpp:112] Iteration 74500, lr = 0.00064
+I0915 23:19:34.024972 15477 solver.cpp:239] Iteration 75000 (42.9052 iter/s, 11.6536s/500 iters), loss = 0.711786
+I0915 23:19:34.025099 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:19:34.025117 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:34.025132 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0372728 (* 0.5 = 0.0186364 loss)
+I0915 23:19:34.025144 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:19:34.025156 15477 sgd_solver.cpp:112] Iteration 75000, lr = 0.00064
+I0915 23:19:40.849915 15477 solver.cpp:239] Iteration 75500 (73.2813 iter/s, 6.82302s/500 iters), loss = 0.193717
+I0915 23:19:40.850000 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.193714 (* 1 = 0.193714 loss)
+I0915 23:19:40.850019 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:40.850033 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:19:40.850044 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.890625
+I0915 23:19:40.850056 15477 sgd_solver.cpp:112] Iteration 75500, lr = 0.00064
+I0915 23:19:42.802068 15477 solver.cpp:239] Iteration 76000 (256.128 iter/s, 1.95215s/500 iters), loss = 0.707535
+I0915 23:19:42.802112 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:19:42.802119 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:42.802122 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0287704 (* 0.5 = 0.0143852 loss)
+I0915 23:19:42.802126 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:19:42.802130 15477 sgd_solver.cpp:112] Iteration 76000, lr = 0.00064
+I0915 23:19:49.668200 15477 solver.cpp:239] Iteration 76500 (72.8239 iter/s, 6.86588s/500 iters), loss = 0.14481
+I0915 23:19:49.668287 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.144808 (* 1 = 0.144808 loss)
+I0915 23:19:49.668304 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:49.668319 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:19:49.668330 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:19:49.668344 15477 sgd_solver.cpp:112] Iteration 76500, lr = 0.00064
+I0915 23:19:51.621731 15477 solver.cpp:239] Iteration 77000 (255.947 iter/s, 1.95353s/500 iters), loss = 0.13257
+I0915 23:19:51.621943 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.132567 (* 1 = 0.132567 loss)
+I0915 23:19:51.621951 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:19:51.621955 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:19:51.621959 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:19:51.621963 15477 sgd_solver.cpp:112] Iteration 77000, lr = 0.00064
+I0915 23:20:03.391624 15477 solver.cpp:239] Iteration 77500 (42.4819 iter/s, 11.7697s/500 iters), loss = 0.182568
+I0915 23:20:03.391767 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.182565 (* 1 = 0.182565 loss)
+I0915 23:20:03.391774 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:03.391779 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:20:03.391782 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:20:03.391788 15477 sgd_solver.cpp:112] Iteration 77500, lr = 0.00064
+I0915 23:20:10.117555 15477 solver.cpp:239] Iteration 78000 (74.3603 iter/s, 6.72402s/500 iters), loss = 0.0518034
+I0915 23:20:10.117645 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0518006 (* 1 = 0.0518006 loss)
+I0915 23:20:10.117666 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:10.117693 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:20:10.117705 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:20:10.117718 15477 sgd_solver.cpp:112] Iteration 78000, lr = 0.00064
+I0915 23:20:12.067831 15477 solver.cpp:239] Iteration 78500 (256.375 iter/s, 1.95027s/500 iters), loss = 0.0848708
+I0915 23:20:12.067874 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0848675 (* 1 = 0.0848675 loss)
+I0915 23:20:12.067880 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:12.067885 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:20:12.067888 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:20:12.067893 15477 sgd_solver.cpp:112] Iteration 78500, lr = 0.00064
+I0915 23:20:18.952391 15477 solver.cpp:239] Iteration 79000 (72.6445 iter/s, 6.88284s/500 iters), loss = 0.707744
+I0915 23:20:18.952479 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:20:18.952497 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:18.952512 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0291879 (* 0.5 = 0.0145939 loss)
+I0915 23:20:18.952523 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:20:18.952536 15477 sgd_solver.cpp:112] Iteration 79000, lr = 0.00064
+I0915 23:20:20.895646 15477 solver.cpp:239] Iteration 79500 (257.301 iter/s, 1.94325s/500 iters), loss = 0.132719
+I0915 23:20:20.895690 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.132715 (* 1 = 0.132715 loss)
+I0915 23:20:20.895696 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:20.895700 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:20:20.895704 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:20:20.895709 15477 sgd_solver.cpp:112] Iteration 79500, lr = 0.00064
+I0915 23:20:32.484959 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_80000.caffemodel
+I0915 23:20:32.489322 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_80000.solverstate
+I0915 23:20:32.495262 15477 solver.cpp:239] Iteration 80000 (43.1032 iter/s, 11.6001s/500 iters), loss = 0.707054
+I0915 23:20:32.495298 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:20:32.495304 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:32.495309 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0278072 (* 0.5 = 0.0139036 loss)
+I0915 23:20:32.495312 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:20:32.495318 15477 sgd_solver.cpp:112] Iteration 80000, lr = 0.00064
+I0915 23:20:39.300983 15477 solver.cpp:239] Iteration 80500 (73.4878 iter/s, 6.80385s/500 iters), loss = 0.0764914
+I0915 23:20:39.301239 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0764879 (* 1 = 0.0764879 loss)
+I0915 23:20:39.301259 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:39.301270 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:20:39.301278 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:20:39.301288 15477 sgd_solver.cpp:112] Iteration 80500, lr = 0.00064
+I0915 23:20:41.255089 15477 solver.cpp:239] Iteration 81000 (255.894 iter/s, 1.95393s/500 iters), loss = 0.150114
+I0915 23:20:41.255132 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.15011 (* 1 = 0.15011 loss)
+I0915 23:20:41.255138 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:41.255142 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:20:41.255146 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:20:41.255162 15477 sgd_solver.cpp:112] Iteration 81000, lr = 0.00064
+I0915 23:20:48.063088 15477 solver.cpp:239] Iteration 81500 (73.4623 iter/s, 6.80621s/500 iters), loss = 0.712249
+I0915 23:20:48.063186 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:20:48.063210 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:48.063225 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0381957 (* 0.5 = 0.0190978 loss)
+I0915 23:20:48.063237 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:20:48.063251 15477 sgd_solver.cpp:112] Iteration 81500, lr = 0.00064
+I0915 23:20:50.010176 15477 solver.cpp:239] Iteration 82000 (256.796 iter/s, 1.94707s/500 iters), loss = 0.711116
+I0915 23:20:50.010221 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:20:50.010226 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:20:50.010231 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0359287 (* 0.5 = 0.0179643 loss)
+I0915 23:20:50.010236 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:20:50.010239 15477 sgd_solver.cpp:112] Iteration 82000, lr = 0.00064
+I0915 23:21:01.744931 15477 solver.cpp:239] Iteration 82500 (42.6088 iter/s, 11.7347s/500 iters), loss = 0.711305
+I0915 23:21:01.744980 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:21:01.744987 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:01.744992 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0363072 (* 0.5 = 0.0181536 loss)
+I0915 23:21:01.744994 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:21:01.744998 15477 sgd_solver.cpp:112] Iteration 82500, lr = 0.00064
+I0915 23:21:08.439702 15477 solver.cpp:239] Iteration 83000 (74.7059 iter/s, 6.69291s/500 iters), loss = 0.710789
+I0915 23:21:08.440096 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:21:08.440105 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:08.440110 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0352779 (* 0.5 = 0.0176389 loss)
+I0915 23:21:08.440114 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:21:08.440119 15477 sgd_solver.cpp:112] Iteration 83000, lr = 0.00064
+I0915 23:21:10.384274 15477 solver.cpp:239] Iteration 83500 (257.166 iter/s, 1.94427s/500 iters), loss = 0.167538
+I0915 23:21:10.384318 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.167534 (* 1 = 0.167534 loss)
+I0915 23:21:10.384325 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:10.384330 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:21:10.384332 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:21:10.384336 15477 sgd_solver.cpp:112] Iteration 83500, lr = 0.00064
+I0915 23:21:17.255110 15477 solver.cpp:239] Iteration 84000 (72.7923 iter/s, 6.86886s/500 iters), loss = 0.708747
+I0915 23:21:17.255216 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:21:17.255239 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:17.255256 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0311919 (* 0.5 = 0.0155959 loss)
+I0915 23:21:17.255268 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:21:17.255282 15477 sgd_solver.cpp:112] Iteration 84000, lr = 0.00064
+I0915 23:21:19.200096 15477 solver.cpp:239] Iteration 84500 (257.075 iter/s, 1.94496s/500 iters), loss = 0.110595
+I0915 23:21:19.200141 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.110591 (* 1 = 0.110591 loss)
+I0915 23:21:19.200147 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:19.200163 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:21:19.200167 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:21:19.200171 15477 sgd_solver.cpp:112] Iteration 84500, lr = 0.00064
+I0915 23:21:30.843873 15477 solver.cpp:239] Iteration 85000 (42.9418 iter/s, 11.6437s/500 iters), loss = 0.14297
+I0915 23:21:30.843961 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.142967 (* 1 = 0.142967 loss)
+I0915 23:21:30.843979 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:30.843993 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:21:30.844005 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:21:30.844018 15477 sgd_solver.cpp:112] Iteration 85000, lr = 0.00064
+I0915 23:21:37.664302 15477 solver.cpp:239] Iteration 85500 (73.3288 iter/s, 6.81861s/500 iters), loss = 0.707456
+I0915 23:21:37.664397 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:21:37.664415 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:37.664430 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0286113 (* 0.5 = 0.0143057 loss)
+I0915 23:21:37.664441 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:21:37.664454 15477 sgd_solver.cpp:112] Iteration 85500, lr = 0.00064
+I0915 23:21:39.611992 15477 solver.cpp:239] Iteration 86000 (256.717 iter/s, 1.94767s/500 iters), loss = 0.189354
+I0915 23:21:39.612188 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.18935 (* 1 = 0.18935 loss)
+I0915 23:21:39.612195 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:39.612200 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:21:39.612203 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:21:39.612208 15477 sgd_solver.cpp:112] Iteration 86000, lr = 0.00064
+I0915 23:21:46.401715 15477 solver.cpp:239] Iteration 86500 (73.663 iter/s, 6.78767s/500 iters), loss = 0.0875946
+I0915 23:21:46.401808 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0875906 (* 1 = 0.0875906 loss)
+I0915 23:21:46.401825 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:46.401840 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:21:46.401852 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:21:46.401865 15477 sgd_solver.cpp:112] Iteration 86500, lr = 0.00064
+I0915 23:21:48.352880 15477 solver.cpp:239] Iteration 87000 (256.259 iter/s, 1.95115s/500 iters), loss = 0.70661
+I0915 23:21:48.352927 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:21:48.352933 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:21:48.352937 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.026917 (* 0.5 = 0.0134585 loss)
+I0915 23:21:48.352941 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:21:48.352946 15477 sgd_solver.cpp:112] Iteration 87000, lr = 0.00064
+I0915 23:22:00.156432 15477 solver.cpp:239] Iteration 87500 (42.3607 iter/s, 11.8034s/500 iters), loss = 0.707278
+I0915 23:22:00.156635 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:22:00.156657 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:00.156673 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0282534 (* 0.5 = 0.0141267 loss)
+I0915 23:22:00.156687 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:22:00.156699 15477 sgd_solver.cpp:112] Iteration 87500, lr = 0.00064
+I0915 23:22:06.924216 15477 solver.cpp:239] Iteration 88000 (73.902 iter/s, 6.76572s/500 iters), loss = 0.0906479
+I0915 23:22:06.924307 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0906434 (* 1 = 0.0906434 loss)
+I0915 23:22:06.924322 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:06.924327 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:22:06.924330 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:22:06.924335 15477 sgd_solver.cpp:112] Iteration 88000, lr = 0.00064
+I0915 23:22:08.870203 15477 solver.cpp:239] Iteration 88500 (256.942 iter/s, 1.94596s/500 iters), loss = 0.712057
+I0915 23:22:08.870247 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:22:08.870254 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:08.870259 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0378091 (* 0.5 = 0.0189046 loss)
+I0915 23:22:08.870261 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:22:08.870265 15477 sgd_solver.cpp:112] Iteration 88500, lr = 0.00064
+I0915 23:22:15.641532 15477 solver.cpp:239] Iteration 89000 (73.8434 iter/s, 6.77109s/500 iters), loss = 0.707722
+I0915 23:22:15.641782 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:22:15.641789 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:15.641793 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0291383 (* 0.5 = 0.0145691 loss)
+I0915 23:22:15.641798 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:22:15.641801 15477 sgd_solver.cpp:112] Iteration 89000, lr = 0.00064
+I0915 23:22:17.595330 15477 solver.cpp:239] Iteration 89500 (255.936 iter/s, 1.95362s/500 iters), loss = 0.711662
+I0915 23:22:17.595374 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:22:17.595379 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:17.595384 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0370198 (* 0.5 = 0.0185099 loss)
+I0915 23:22:17.595387 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:22:17.595391 15477 sgd_solver.cpp:112] Iteration 89500, lr = 0.00064
+I0915 23:22:29.262651 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_90000.caffemodel
+I0915 23:22:29.267010 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_90000.solverstate
+I0915 23:22:29.273694 15477 solver.cpp:239] Iteration 90000 (42.8128 iter/s, 11.6788s/500 iters), loss = 0.0746471
+I0915 23:22:29.273728 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0746416 (* 1 = 0.0746416 loss)
+I0915 23:22:29.273735 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:29.273739 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:22:29.273742 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:22:29.273748 15477 sgd_solver.cpp:112] Iteration 90000, lr = 0.000512
+I0915 23:22:36.069344 15477 solver.cpp:239] Iteration 90500 (73.5956 iter/s, 6.79388s/500 iters), loss = 0.7098
+I0915 23:22:36.069444 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:22:36.069465 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:36.069481 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.033296 (* 0.5 = 0.016648 loss)
+I0915 23:22:36.069494 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:22:36.069507 15477 sgd_solver.cpp:112] Iteration 90500, lr = 0.000512
+I0915 23:22:38.017411 15477 solver.cpp:239] Iteration 91000 (256.668 iter/s, 1.94804s/500 iters), loss = 0.170135
+I0915 23:22:38.017452 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.170129 (* 1 = 0.170129 loss)
+I0915 23:22:38.017458 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:38.017463 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:22:38.017480 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:22:38.017484 15477 sgd_solver.cpp:112] Iteration 91000, lr = 0.000512
+I0915 23:22:44.900135 15477 solver.cpp:239] Iteration 91500 (72.6643 iter/s, 6.88096s/500 iters), loss = 0.708205
+I0915 23:22:44.900226 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:22:44.900244 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:44.900259 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0301049 (* 0.5 = 0.0150525 loss)
+I0915 23:22:44.900271 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:22:44.900285 15477 sgd_solver.cpp:112] Iteration 91500, lr = 0.000512
+I0915 23:22:46.853848 15477 solver.cpp:239] Iteration 92000 (255.925 iter/s, 1.95369s/500 iters), loss = 0.0786424
+I0915 23:22:46.855758 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.078637 (* 1 = 0.078637 loss)
+I0915 23:22:46.855782 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:46.855796 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:22:46.855808 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:22:46.855820 15477 sgd_solver.cpp:112] Iteration 92000, lr = 0.000512
+I0915 23:22:53.635932 15477 solver.cpp:239] Iteration 92500 (73.747 iter/s, 6.77993s/500 iters), loss = 0.0934955
+I0915 23:22:53.635982 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.0934899 (* 1 = 0.0934899 loss)
+I0915 23:22:53.635988 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:22:53.635993 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:22:53.635996 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.984375
+I0915 23:22:53.636000 15477 sgd_solver.cpp:112] Iteration 92500, lr = 0.000512
+I0915 23:23:05.334554 15477 solver.cpp:239] Iteration 93000 (42.7406 iter/s, 11.6985s/500 iters), loss = 0.710332
+I0915 23:23:05.334645 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:23:05.334663 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:05.334689 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0343581 (* 0.5 = 0.017179 loss)
+I0915 23:23:05.334702 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:23:05.334714 15477 sgd_solver.cpp:112] Iteration 93000, lr = 0.000512
+I0915 23:23:07.281608 15477 solver.cpp:239] Iteration 93500 (256.801 iter/s, 1.94703s/500 iters), loss = 0.117843
+I0915 23:23:07.281652 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.117838 (* 1 = 0.117838 loss)
+I0915 23:23:07.281658 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:07.281662 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:23:07.281666 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:23:07.281671 15477 sgd_solver.cpp:112] Iteration 93500, lr = 0.000512
+I0915 23:23:14.173709 15477 solver.cpp:239] Iteration 94000 (72.5657 iter/s, 6.89031s/500 iters), loss = 0.70945
+I0915 23:23:14.173758 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:23:14.173765 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:14.173770 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0325942 (* 0.5 = 0.0162971 loss)
+I0915 23:23:14.173774 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:23:14.173779 15477 sgd_solver.cpp:112] Iteration 94000, lr = 0.000512
+I0915 23:23:16.117913 15477 solver.cpp:239] Iteration 94500 (257.173 iter/s, 1.94421s/500 iters), loss = 0.182126
+I0915 23:23:16.117959 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.18212 (* 1 = 0.18212 loss)
+I0915 23:23:16.117965 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:16.117981 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:23:16.117985 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.9375
+I0915 23:23:16.117990 15477 sgd_solver.cpp:112] Iteration 94500, lr = 0.000512
+I0915 23:23:27.838258 15477 solver.cpp:239] Iteration 95000 (42.6613 iter/s, 11.7202s/500 iters), loss = 0.147874
+I0915 23:23:27.839956 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.147868 (* 1 = 0.147868 loss)
+I0915 23:23:27.839963 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:27.839968 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:23:27.839972 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:23:27.839975 15477 sgd_solver.cpp:112] Iteration 95000, lr = 0.000512
+I0915 23:23:34.640669 15477 solver.cpp:239] Iteration 95500 (73.5411 iter/s, 6.79892s/500 iters), loss = 0.170829
+I0915 23:23:34.640758 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.170823 (* 1 = 0.170823 loss)
+I0915 23:23:34.640775 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:34.640790 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:23:34.640801 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.921875
+I0915 23:23:34.640815 15477 sgd_solver.cpp:112] Iteration 95500, lr = 0.000512
+I0915 23:23:36.599977 15477 solver.cpp:239] Iteration 96000 (255.195 iter/s, 1.95929s/500 iters), loss = 0.128239
+I0915 23:23:36.600023 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.128233 (* 1 = 0.128233 loss)
+I0915 23:23:36.600029 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:36.600034 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:23:36.600037 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.96875
+I0915 23:23:36.600041 15477 sgd_solver.cpp:112] Iteration 96000, lr = 0.000512
+I0915 23:23:43.471853 15477 solver.cpp:239] Iteration 96500 (72.7803 iter/s, 6.86999s/500 iters), loss = 0.71141
+I0915 23:23:43.471904 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:23:43.471909 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:43.471913 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0365134 (* 0.5 = 0.0182567 loss)
+I0915 23:23:43.471917 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:23:43.471921 15477 sgd_solver.cpp:112] Iteration 96500, lr = 0.000512
+I0915 23:23:45.418234 15477 solver.cpp:239] Iteration 97000 (256.886 iter/s, 1.94639s/500 iters), loss = 0.309001
+I0915 23:23:45.418278 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.308994 (* 1 = 0.308994 loss)
+I0915 23:23:45.418284 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:45.418288 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:23:45.418292 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.90625
+I0915 23:23:45.418296 15477 sgd_solver.cpp:112] Iteration 97000, lr = 0.000512
+I0915 23:23:57.206354 15477 solver.cpp:239] Iteration 97500 (42.4217 iter/s, 11.7864s/500 iters), loss = 0.706064
+I0915 23:23:57.206537 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:23:57.206547 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:23:57.206553 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0258217 (* 0.5 = 0.0129109 loss)
+I0915 23:23:57.206557 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:23:57.206562 15477 sgd_solver.cpp:112] Iteration 97500, lr = 0.000512
+I0915 23:24:04.071940 15477 solver.cpp:239] Iteration 98000 (72.848 iter/s, 6.8636s/500 iters), loss = 0.166326
+I0915 23:24:04.072329 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.16632 (* 1 = 0.16632 loss)
+I0915 23:24:04.072352 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:24:04.072366 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:24:04.072377 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.953125
+I0915 23:24:04.072391 15477 sgd_solver.cpp:112] Iteration 98000, lr = 0.000512
+I0915 23:24:06.017768 15477 solver.cpp:239] Iteration 98500 (257.002 iter/s, 1.94551s/500 iters), loss = 0.712689
+I0915 23:24:06.017812 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:24:06.017817 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:24:06.017822 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0390714 (* 0.5 = 0.0195357 loss)
+I0915 23:24:06.017824 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:24:06.017828 15477 sgd_solver.cpp:112] Iteration 98500, lr = 0.000512
+I0915 23:24:12.836510 15477 solver.cpp:239] Iteration 99000 (73.3479 iter/s, 6.81683s/500 iters), loss = 0.708447
+I0915 23:24:12.836560 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.693147 (* 1 = 0.693147 loss)
+I0915 23:24:12.836566 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:24:12.836571 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0.0305889 (* 0.5 = 0.0152945 loss)
+I0915 23:24:12.836575 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0
+I0915 23:24:12.836580 15477 sgd_solver.cpp:112] Iteration 99000, lr = 0.000512
+I0915 23:24:14.788743 15477 solver.cpp:239] Iteration 99500 (256.116 iter/s, 1.95224s/500 iters), loss = 0.181861
+I0915 23:24:14.788792 15477 solver.cpp:258]     Train net output #0: ClassifyLoss = 0.181856 (* 1 = 0.181856 loss)
+I0915 23:24:14.788799 15477 solver.cpp:258]     Train net output #1: LandmarkLoss = 0 (* 1 = 0 loss)
+I0915 23:24:14.788802 15477 solver.cpp:258]     Train net output #2: RegressionLoss = 0 (* 0.5 = 0 loss)
+I0915 23:24:14.788805 15477 solver.cpp:258]     Train net output #3: cls_Acc = 0.90625
+I0915 23:24:14.788810 15477 sgd_solver.cpp:112] Iteration 99500, lr = 0.000512
+I0915 23:24:26.556274 15477 solver.cpp:464] Snapshotting to binary proto file ./models/solver_iter_100000.caffemodel
+I0915 23:24:26.560681 15477 sgd_solver.cpp:284] Snapshotting solver state to binary proto file ./models/solver_iter_100000.solverstate
+I0915 23:24:26.564312 15477 solver.cpp:327] Iteration 100000, loss = 0.709751
+I0915 23:24:26.564339 15477 solver.cpp:332] Optimization Done.
+I0915 23:24:26.564652 15477 caffe.cpp:250] Optimization Done.

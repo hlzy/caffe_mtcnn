@@ -214,7 +214,7 @@ layer {
   bottom: "conv4-2"
   bottom: "roi"
   top: "roi_loss"
-  loss_weight: 0.5
+  loss_weight: 1
   python_param {
     module: "pythonLayer"
     layer:  "regression_Layer"

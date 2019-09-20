@@ -157,6 +157,10 @@ Output:
 def filter_face_48net(cls_prob,roi,pts,rectangles,width,height,threshold):
     prob = cls_prob[:,1]
     pick = np.where(prob>=threshold)
+    #print(prob.shape) 
+    #print(prob) 
+    #print(np.where(prob>threshold))
+    print(np.sum((prob>threshold)))
     rectangles = np.array(rectangles)
     x1  = rectangles[pick,0]
     y1  = rectangles[pick,1]
@@ -183,6 +187,8 @@ def filter_face_48net(cls_prob,roi,pts,rectangles,width,height,threshold):
     y1  = np.array([(y1+dx2*h)[0]]).T
     x2  = np.array([(x2+dx3*w)[0]]).T
     y2  = np.array([(y2+dx4*h)[0]]).T
+    #x2  = np.array([(x1+dx3*w)[0]]).T
+    #y2  = np.array([(y1+dx4*h)[0]]).T
     rectangles=np.concatenate((x1,y1,x2,y2,sc,pts0,pts1,pts2,pts3,pts4,pts5,pts6,pts7,pts8,pts9),axis=1)
     pick = []
     for i in range(len(rectangles)):
@@ -193,6 +199,7 @@ def filter_face_48net(cls_prob,roi,pts,rectangles,width,height,threshold):
         if x2>x1 and y2>y1:
             pick.append([x1,y1,x2,y2,rectangles[i][4],
                          rectangles[i][5],rectangles[i][6],rectangles[i][7],rectangles[i][8],rectangles[i][9],rectangles[i][10],rectangles[i][11],rectangles[i][12],rectangles[i][13],rectangles[i][14]])
+    print(len(pick)) 
     return NMS(pick,0.7,'iom')
 '''
 Function:
@@ -226,3 +233,18 @@ def calculateScales(img):
         minl *= factor
         factor_count += 1
     return scales
+
+if __name__ == "__main__":
+    imgpath = "../prepare_data/WIDER_val/images/11--Meeting/11_Meeting_Meeting_11_Meeting_Meeting_11_406.jpg"
+    img = cv2.imread(imgpath)
+    caffe_img = (img.copy()-127.5)/127.5
+    origin_h,origin_w,ch = caffe_img.shape
+    scales = calculateScales(img)
+    i = 0
+    for scale in scales:
+        hs = int(origin_h*scale)
+        ws = int(origin_w*scale)
+        scale_img = cv2.resize(caffe_img,(ws,hs))
+        cv2.imwrite("scale_img/%d.jpg" % i,scale_img*127.5 + 127.5)
+        i += 1
+    print(scales)

@@ -49,7 +49,12 @@ for line in pos:
     if h!=net_size or w!=net_size:
         im = cv2.resize(im,(net_size,net_size))
     im = np.swapaxes(im, 0, 2)
-    im = (im - 127.5)/127.5
+#    im = (im - 127.5)/127.5
+    im = im.astype(np.float32)
+    im[0,:,:]  = (im[0,:,:] - 104.146) / 127.5
+    im[1,:,:]  = (im[1,:,:] - 110.807) / 127.5
+    im[2,:,:]  = (im[2,:,:] - 119.856) / 127.5
+
     label    = 1
     roi      = [-1,-1,-1,-1]
     pts	     = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
@@ -63,7 +68,7 @@ for line in pos:
 
 print('\n'+'negative-%d' % net_size)
 cur_ = 0
-neg_keep = npr.choice(len(neg), size=500000, replace=False)
+neg_keep = npr.choice(len(neg), size=600000, replace=False)
 #neg_keep = npr.choice(len(neg), size=3000, replace=False)
 sum_ = len(neg_keep)
 for i in neg_keep:
@@ -77,7 +82,13 @@ for i in neg_keep:
     if h!=net_size or w!=net_size:
         im = cv2.resize(im,(net_size,net_size))
     im = np.swapaxes(im, 0, 2)
-    im = (im - 127.5)/127.5
+#    im = (im - 127.5)/127.5
+    im = im.astype(np.float32)
+    im[0,:,:]  = (im[0,:,:] - 104.146) / 127.5
+    im[1,:,:]  = (im[1,:,:] - 110.807) / 127.5
+    im[2,:,:]  = (im[2,:,:] - 119.856) / 127.5
+
+
     label    = 0
     roi      = [-1,-1,-1,-1]
     pts	     = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
@@ -89,7 +100,7 @@ fid.close()
 
 print('\n'+'part-%d' % net_size)
 cur_ = 0
-part_keep = npr.choice(len(part), size=250000, replace=False)
+part_keep = npr.choice(len(part), size=200000, replace=False)
 #part_keep = npr.choice(len(part), size=3000, replace=False)
 sum_ = len(part_keep)
 for i in part_keep:
@@ -102,9 +113,13 @@ for i in part_keep:
     h,w,ch = im.shape
     if h!=net_size or w!=net_size:
         im = cv2.resize(im,(net_size,net_size))
+    
     im = np.swapaxes(im, 0, 2)
-#    im -= 128
-    im = (im - 127.5)/127.5
+    im = im.astype(np.float32)
+    im[0,:,:]  = (im[0,:,:] - 104.146) / 127.5
+    im[1,:,:]  = (im[1,:,:] - 110.807) / 127.5
+    im[2,:,:]  = (im[2,:,:] - 119.856) / 127.5
+#    im = (im - 127.5)/127.5
     label    = -1
     roi      = [float(words[2]),float(words[3]),float(words[4]),float(words[5])]
     pts	     = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
